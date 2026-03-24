@@ -4,53 +4,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account - Azurix Hub</title>
+    <title>Azurix</title>
     <link rel="stylesheet" href="../styles.css">
+    <!-- Apply saved theme/palette before first paint to prevent flash -->
+    <script>
+        (function(){
+            var t=localStorage.getItem('theme'), p=localStorage.getItem('palette');
+            if(t) document.documentElement.setAttribute('data-theme',t);
+            else if(matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme','dark');
+            if(p) document.documentElement.setAttribute('data-palette',p);
+        })();
+    </script>
 </head>
 
-<body>
-    <header>
-        <h1>Manage Your Account</h1>
+<body class="account-page">
+    <!-- Sticky Header -->
+    <header class="site-header" id="siteHeader">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="accountNav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="../index.html" class="brand-name">Azurix Hub</a>
+        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
+            <span class="theme-icon">🌙</span>
+        </button>
+        <div id="headerAuthArea" class="header-auth-area"></div>
     </header>
-    <div class="body-content">
-        <nav id="account-nav" class="nav-links">
-            <ul>
-                <li><a href="#profile" class="active">Profile</a></li>
-                <li><a href="#collaboration">Collaboration</a></li>
-                <li><a href="#settings">Settings</a></li>
-            </ul>
-        </nav>
-        <p>Welcome to your account dashboard. Here you can manage your profile, view your activity, and access your
-            saved tools and resources</p>
-        <div>
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Account Side Nav -->
+    <nav class="sidebar" id="accountNav">
+        <ul class="nav-links">
+            <li><a href="#profile" class="active">Profile</a></li>
+            <li><a href="#collaboration">Collaboration</a></li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="account-body">
+            <!-- Auth state banner -->
+            <div id="authBanner" class="auth-banner" role="status" aria-live="polite" hidden></div>
+
+            <!-- Login form (shown when logged out) -->
+            <section id="loginSection" class="account-section" hidden>
+                <div class="account-card">
+                    <h2>Sign In to Azurix Hub</h2>
+                    <p class="account-card-intro">Enter your credentials to access your account.</p>
+                    <form id="loginForm" class="content" novalidate>
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" required>
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
+                        <div id="loginError" class="form-feedback form-feedback-error" hidden></div>
+                        <input type="submit" value="Sign In">
+                    </form>
+                </div>
+            </section>
+
+            <!-- Profile section (shown when logged in) -->
+            <section id="profileSection" class="account-section" hidden>
+                <!-- Profile Overview -->
+                <div class="account-card" id="profile">
+                    <h2>Profile Overview</h2>
+                    <p id="userEmail" class="user-email-display"></p>
+                    <form class="content" id="profileForm" novalidate>
+                        <label for="displayName">Name</label>
+                        <input type="text" placeholder="Display name" id="displayName" autocomplete="name">
+                        <label for="accountEmail">Email</label>
+                        <input type="email" placeholder="Email" id="accountEmail" autocomplete="email">
+                        <label for="accountPassword">New Password</label>
+                        <input type="password" placeholder="Leave blank to keep current" id="accountPassword" autocomplete="new-password">
+                        <div id="profileFeedback" class="form-feedback" hidden></div>
+                        <input type="submit" value="Update Profile">
+                        <button type="button" id="logoutBtn" class="btn-logout">Sign Out</button>
+                    </form>
+                </div>
+
+                <hr class="account-divider">
+
+                <!-- Collaboration -->
+                <div class="account-card" id="collaboration">
+                    <h2>Collaboration</h2>
+                    <p class="account-card-intro">Connect with other researchers, share your work, and collaborate on projects.</p>
+                    <div class="collab-grid">
+                        <div class="collab-card">
+                            <div class="collab-avatar">👩‍🔬</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Dr. Sarah Chen</p>
+                                <p class="collab-role">Genomics Researcher</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                        <div class="collab-card">
+                            <div class="collab-avatar">🧑‍🔬</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Prof. James Okafor</p>
+                                <p class="collab-role">Biology Educator</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                        <div class="collab-card">
+                            <div class="collab-avatar">👨‍💻</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Alex Rivera</p>
+                                <p class="collab-role">Bioinformatics Student</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                    </div>
+                    <button class="btn-collab-invite" type="button">+ Invite Collaborator</button>
+                </div>
+
+                <hr class="account-divider">
+
+                <!-- Settings -->
+                <div class="account-card" id="settings">
+                    <h2>Settings</h2>
+                    <p class="account-card-intro">Customize your Azurix Hub experience.</p>
+
+                    <h3 class="settings-group-label">Appearance</h3>
+                    <div class="settings-row">
+                        <span>Dark mode</span>
+                        <label class="toggle-switch" aria-label="Toggle dark mode">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <h3 class="settings-group-label">Color Palette</h3>
+                    <div class="palette-grid">
+                        <button class="palette-swatch" data-palette="blue"   title="Blue"></button>
+                        <button class="palette-swatch" data-palette="green"  title="Green"></button>
+                        <button class="palette-swatch" data-palette="purple" title="Purple"></button>
+                        <button class="palette-swatch" data-palette="teal"   title="Teal"></button>
+                        <button class="palette-swatch" data-palette="rose"   title="Rose"></button>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="menu-account-roll">
-            <div class="profile-overview" id="profile">
-                <h2>Profile Overview</h2>
-                <form class="content">
-                    <label for="name">Name</label>
-                    <input type="text" placeholder="Name" id="name">
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="Email" id="email">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Password" id="password">
-                    <input type="submit" value="Update Profile" class="submit-btn-primary">
-                </form>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2026 Azurix. All rights reserved.</p>
+                <p>Contact me at: <a href="mailto:timothywallis@ucmerced.edu" style="color: white; text-decoration: none;">timothywallis@ucmerced.edu</a></p>
             </div>
-            <hr>
-            <div class="collaboration" id="collaboration">
-                <h2>Collaboration</h2>
-                <p>Connect with other researchers, share your work, and collaborate on projects.</p>
-            </div>
-        </div>
-    </div>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Azurix. All rights reserved.</p>
-            <p>Contact me at: <a href="mailto:timothywallis@ucmerced.edu" style="color: white; text-decoration: none;">timothywallis@ucmerced.edu</a></p>
-        </div>
-    </footer>
-    <script src="../script.js"></script>
+        </footer>
+    </main>
+
+    <!--
+        SUPABASE CONFIGURATION
+        ─────────────────────
+        Replace the placeholder values below with your project's credentials.
+        Find them in: Supabase Dashboard → Project Settings → API
+
+        SUPABASE_URL  : your project URL, e.g. https://xyzxyz.supabase.co
+        SUPABASE_ANON_KEY : your project anon/public key
+
+        ⚠️  NEVER commit real secret keys to source control.
+            These are public-safe anon keys only.
+    -->
+    <script type="module">
+        // ── Supabase config ──────────────────────────────────────────────
+        const SUPABASE_URL      = 'YOUR_SUPABASE_URL';       // ← replace
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';  // ← replace
+        // ─────────────────────────────────────────────────────────────────
+
+        const configMissing =
+            SUPABASE_URL === 'YOUR_SUPABASE_URL' ||
+            SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY';
+
+        // DOM references
+        const authBanner      = document.getElementById('authBanner');
+        const loginSection    = document.getElementById('loginSection');
+        const profileSection  = document.getElementById('profileSection');
+        const headerAuthArea  = document.getElementById('headerAuthArea');
+        const loginForm       = document.getElementById('loginForm');
+        const loginError      = document.getElementById('loginError');
+        const logoutBtn       = document.getElementById('logoutBtn');
+        const userEmailEl     = document.getElementById('userEmail');
+        const accountEmailEl  = document.getElementById('accountEmail');
+        const profileForm     = document.getElementById('profileForm');
+        const profileFeedback = document.getElementById('profileFeedback');
+
+        function showBanner(message, type = 'info') {
+            // Build banner with a close (✕) button
+            authBanner.innerHTML = '';
+            const text = document.createElement('span');
+            text.textContent = message;
+            const closeBtn = document.createElement('button');
+            closeBtn.className  = 'banner-close';
+            closeBtn.type       = 'button';
+            closeBtn.setAttribute('aria-label', 'Dismiss');
+            closeBtn.textContent = '✕';
+            closeBtn.addEventListener('click', () => { authBanner.hidden = true; });
+            authBanner.appendChild(text);
+            authBanner.appendChild(closeBtn);
+            authBanner.className = `auth-banner auth-banner-${type}`;
+            authBanner.hidden = false;
+        }
+
+        function hideBanner() {
+            authBanner.hidden = true;
+        }
+
+        function showLoginState() {
+            loginSection.hidden  = false;
+            profileSection.hidden = true;
+            // No Sign In button in the header — the form below is sufficient
+            headerAuthArea.innerHTML = '';
+        }
+
+        function showProfileState(user) {
+            loginSection.hidden  = true;
+            profileSection.hidden = false;
+            if (userEmailEl) userEmailEl.textContent = `Signed in as: ${user.email}`;
+            if (accountEmailEl) accountEmailEl.value = user.email || '';
+            headerAuthArea.innerHTML = `<span class="header-user-email">${user.email}</span>`;
+        }
+
+        if (configMissing) {
+            showBanner(
+                '⚙️  Supabase is not configured. ' +
+                'Open workspace/account.html and replace YOUR_SUPABASE_URL and YOUR_SUPABASE_ANON_KEY with your project credentials.',
+                'warning'
+            );
+            showLoginState();
+        } else {
+            // Dynamically import supabase-js from CDN
+            const { createClient } = await import(
+                'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+            );
+
+            const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            // ── Check initial session ──────────────────────────────────
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                showProfileState(session.user);
+            } else {
+                showLoginState();
+            }
+
+            // ── Listen for auth changes ────────────────────────────────
+            supabase.auth.onAuthStateChange((_event, session) => {
+                if (session) {
+                    hideBanner();
+                    showProfileState(session.user);
+                } else {
+                    showLoginState();
+                }
+            });
+
+            // ── Login form ─────────────────────────────────────────────
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email    = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+
+                loginError.hidden = true;
+                const submitBtn = loginForm.querySelector('input[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.value = 'Signing in…';
+
+                const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+                submitBtn.disabled = false;
+                submitBtn.value = 'Sign In';
+
+                if (error) {
+                    loginError.textContent = error.message;
+                    loginError.hidden = false;
+                }
+            });
+
+            // ── Logout ─────────────────────────────────────────────────
+            logoutBtn.addEventListener('click', async () => {
+                logoutBtn.disabled = true;
+                logoutBtn.textContent = 'Signing out…';
+                await supabase.auth.signOut();
+                logoutBtn.disabled = false;
+                logoutBtn.textContent = 'Sign Out';
+            });
+
+            // ── Update profile ─────────────────────────────────────────
+            profileForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                profileFeedback.hidden = true;
+
+                const newEmail    = accountEmailEl.value.trim();
+                const newPassword = document.getElementById('accountPassword').value;
+                const currentUser = (await supabase.auth.getUser()).data.user;
+                const updates = {};
+                // Only include email if it has changed
+                if (newEmail && currentUser && newEmail !== currentUser.email) updates.email = newEmail;
+                if (newPassword) updates.password = newPassword;
+
+                if (Object.keys(updates).length === 0) return;
+
+                const { error } = await supabase.auth.updateUser(updates);
+                profileFeedback.hidden = false;
+                if (error) {
+                    profileFeedback.textContent = error.message;
+                    profileFeedback.className = 'form-feedback form-feedback-error';
+                } else {
+                    profileFeedback.textContent = 'Profile updated successfully.';
+                    profileFeedback.className = 'form-feedback form-feedback-success';
+                    document.getElementById('accountPassword').value = '';
+                }
+            });
+        }
+    </script>
+
+    <script>
+        // Sidebar toggle for account page
+        const MOBILE_BP   = 768;
+        const accSidebar  = document.getElementById('accountNav');
+        const accOverlay  = document.getElementById('sidebarOverlay');
+        const accMenuBtn  = document.getElementById('menuBtn');
+
+        function accIsMobile() { return window.innerWidth <= MOBILE_BP; }
+
+        function accToggle() {
+            if (accIsMobile()) {
+                const isOpen = accSidebar.classList.toggle('mobile-open');
+                accOverlay.classList.toggle('active', isOpen);
+                accMenuBtn.setAttribute('aria-expanded', String(isOpen));
+            } else {
+                const isCollapsed = document.body.classList.toggle('sidebar-collapsed');
+                accMenuBtn.setAttribute('aria-expanded', String(!isCollapsed));
+            }
+        }
+
+        accMenuBtn.addEventListener('click', accToggle);
+        // Set correct initial aria-expanded on load
+        accMenuBtn.setAttribute('aria-expanded', accIsMobile() ? 'false' : 'true');
+
+        accOverlay.addEventListener('click', () => {
+            accSidebar.classList.remove('mobile-open');
+            accOverlay.classList.remove('active');
+            accMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        window.addEventListener('resize', () => {
+            if (!accIsMobile()) {
+                accSidebar.classList.remove('mobile-open');
+                accOverlay.classList.remove('active');
+            } else {
+                document.body.classList.remove('sidebar-collapsed');
+            }
+        });
+
+        // Smooth scroll for account nav links
+        document.querySelectorAll('#accountNav .nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+                e.preventDefault();
+                document.querySelectorAll('#accountNav .nav-links a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (accIsMobile()) {
+                    accSidebar.classList.remove('mobile-open');
+                    accOverlay.classList.remove('active');
+                    accMenuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
+
+    <script src="../app.js"></script>
 </body>
 
 </html>
+
