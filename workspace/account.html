@@ -240,7 +240,7 @@
                 'Open workspace/account.html and replace YOUR_SUPABASE_URL and YOUR_SUPABASE_ANON_KEY with your project credentials.',
                 'warning'
             );
-            showLoginState();
+            // Sign-in screen is temporarily disabled; login section stays hidden
         } else {
             // Dynamically import supabase-js from CDN
             const { createClient } = await import(
@@ -348,8 +348,9 @@
         }
 
         accMenuBtn.addEventListener('click', accToggle);
-        // Set correct initial aria-expanded on load
-        accMenuBtn.setAttribute('aria-expanded', accIsMobile() ? 'false' : 'true');
+        // Sidebar always starts closed on all devices
+        document.body.classList.add('sidebar-collapsed');
+        accMenuBtn.setAttribute('aria-expanded', 'false');
 
         accOverlay.addEventListener('click', () => {
             accSidebar.classList.remove('mobile-open');

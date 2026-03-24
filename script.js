@@ -57,8 +57,9 @@ function toggleSidebar() {
 
 if (menuBtn) {
     menuBtn.addEventListener('click', toggleSidebar);
-    // Set correct initial aria-expanded on load
-    menuBtn.setAttribute('aria-expanded', isMobile() ? 'false' : 'true');
+    // Sidebar always starts closed on all devices
+    document.body.classList.add('sidebar-collapsed');
+    menuBtn.setAttribute('aria-expanded', 'false');
 }
 
 // Close sidebar on overlay click (mobile)
