@@ -73,15 +73,15 @@ body {
     transition: transform var(--transition-speed), opacity var(--transition-speed);
 }
 
-/* Animate hamburger → X when sidebar is collapsed.
+/* Animate hamburger → X when sidebar is open (aria-expanded="true").
    The 7px translateY = span gap (5px) + span height (2px) */
-.sidebar-collapsed .menu-btn span:nth-child(1) {
+.menu-btn[aria-expanded="true"] span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
-.sidebar-collapsed .menu-btn span:nth-child(2) {
+.menu-btn[aria-expanded="true"] span:nth-child(2) {
     opacity: 0;
 }
-.sidebar-collapsed .menu-btn span:nth-child(3) {
+.menu-btn[aria-expanded="true"] span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
 }
 
