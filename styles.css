@@ -480,9 +480,9 @@ body {
     border: 1px solid #fca5a5;
 }
 
-/* Footer */
+/* Footer — always dark regardless of theme */
 .footer {
-    background: var(--text-color);
+    background: #1f2937;
     color: white;
     text-align: center;
     padding: 2rem;
@@ -491,6 +491,24 @@ body {
 .footer p {
     margin: 0.5rem 0;
     opacity: 0.8;
+}
+
+.footer a {
+    color: white;
+}
+
+/* Page title in header (used on pages without a sidebar, e.g. collaboration) */
+.page-title {
+    flex: 1;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+/* Main content with no sidebar push */
+.collab-no-sidebar {
+    margin-left: 0;
 }
 
 /* Responsive Design */
@@ -790,6 +808,18 @@ section {
     --accent-color: #fb7185;
 }
 
+[data-palette="orange"] {
+    --primary-color: #ea580c;
+    --secondary-color: #c2410c;
+    --accent-color: #fb923c;
+}
+
+[data-palette="indigo"] {
+    --primary-color: #4338ca;
+    --secondary-color: #3730a3;
+    --accent-color: #6366f1;
+}
+
 /* =====================
    Dark Mode
    ===================== */
@@ -898,6 +928,12 @@ section {
     background: rgba(255, 255, 255, 0.15);
 }
 
+/* Show moon in light mode (click to go dark), sun in dark mode (click to go light) */
+.theme-icon-dark { display: none; }
+
+[data-theme="dark"] .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-icon-dark  { display: inline; }
+
 /* =====================
    Palette Swatches (Settings)
    ===================== */
@@ -932,6 +968,42 @@ section {
 .palette-swatch[data-palette="purple"] { background: #7c3aed; }
 .palette-swatch[data-palette="teal"]   { background: #0d9488; }
 .palette-swatch[data-palette="rose"]   { background: #e11d48; }
+.palette-swatch[data-palette="orange"] { background: #ea580c; }
+.palette-swatch[data-palette="indigo"] { background: #4338ca; }
+
+/* Custom color picker swatch */
+.custom-color-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.custom-color-wrap label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+#customColorPicker {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+#customColorPicker:hover {
+    transform: scale(1.15);
+}
+
+#customColorPicker.active {
+    border-color: var(--text-color);
+    box-shadow: 0 0 0 2px var(--bg-white), 0 0 0 4px var(--primary-color);
+}
 
 /* =====================
    Settings Card

@@ -5,16 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Collaboration - Azurix Hub</title>
     <link rel="stylesheet" href="../styles.css">
+    <!-- Apply saved theme/palette before first paint to prevent flash -->
+    <script>
+        (function(){
+            var t=localStorage.getItem('theme'), p=localStorage.getItem('palette');
+            if(t) document.documentElement.setAttribute('data-theme',t);
+            else if(matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme','dark');
+            if(p) document.documentElement.setAttribute('data-palette',p);
+        })();
+    </script>
 </head>
 <body>
-    <header>
-        <h1>Your Collaboration Dashboard</h1>
+    <header class="site-header" id="siteHeader">
+        <a href="../index.html" class="brand-name">Azurix Hub</a>
+        <h1 class="page-title">Team Collaboration</h1>
+        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
+            <span class="theme-icon-light" aria-hidden="true">🌙</span>
+            <span class="theme-icon-dark"  aria-hidden="true">☀️</span>
+        </button>
     </header>
 
-    <footer class="footer">
-        <div class="container">
-        <p>&copy; 2026 Azurix. All rights reserved.</p>
-        <p>Contact us: <a href="mailto:timothywallis@ucmerced.edu">timothywallis@ucmerced.edu</a></p>
-    </div></footer>
+    <main class="main-content collab-no-sidebar">
+        <section class="section">
+            <div class="container">
+                <h2>Your Collaboration Dashboard</h2>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2026 Azurix. All rights reserved.</p>
+                <p>Contact us: <a href="mailto:timothywallis@ucmerced.edu">timothywallis@ucmerced.edu</a></p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="../app.js"></script>
 </body>
 </html>
