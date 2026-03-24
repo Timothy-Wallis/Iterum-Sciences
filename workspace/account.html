@@ -27,7 +27,8 @@
         </button>
         <a href="../index.html" class="brand-name">Azurix Hub</a>
         <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
-            <span class="theme-icon">🌙</span>
+            <span class="theme-icon-light" aria-hidden="true">🌙</span>
+            <span class="theme-icon-dark"  aria-hidden="true">☀️</span>
         </button>
         <div id="headerAuthArea" class="header-auth-area"></div>
     </header>
@@ -143,6 +144,12 @@
                         <button class="palette-swatch" data-palette="purple" title="Purple"></button>
                         <button class="palette-swatch" data-palette="teal"   title="Teal"></button>
                         <button class="palette-swatch" data-palette="rose"   title="Rose"></button>
+                        <button class="palette-swatch" data-palette="orange" title="Orange"></button>
+                        <button class="palette-swatch" data-palette="indigo" title="Indigo"></button>
+                    </div>
+                    <div class="custom-color-wrap">
+                        <label for="customColorPicker">Custom color:</label>
+                        <input type="color" id="customColorPicker" title="Pick a custom theme color" value="#2563eb">
                     </div>
                 </div>
             </section>
