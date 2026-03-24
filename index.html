@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azurix - Biology Tools & Solutions</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var palette = localStorage.getItem('palette');
+                if (theme) document.documentElement.setAttribute('data-theme', theme);
+                if (palette) document.documentElement.setAttribute('data-palette', palette);
+            } catch (e) {}
+        }());
+    </script>
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -20,6 +30,16 @@
             <li><a href="#research">Research</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <div class="sidebar-theme">
+            <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Switch to dark mode">🌙</button>
+            <div class="palette-swatches" aria-label="Color palette">
+                <button class="palette-swatch palette-blue" data-palette-btn="blue" onclick="setPalette('blue')" aria-label="Blue palette" title="Blue"></button>
+                <button class="palette-swatch palette-teal" data-palette-btn="teal" onclick="setPalette('teal')" aria-label="Teal palette" title="Teal"></button>
+                <button class="palette-swatch palette-green" data-palette-btn="green" onclick="setPalette('green')" aria-label="Green palette" title="Green"></button>
+                <button class="palette-swatch palette-purple" data-palette-btn="purple" onclick="setPalette('purple')" aria-label="Purple palette" title="Purple"></button>
+                <button class="palette-swatch palette-orange" data-palette-btn="orange" onclick="setPalette('orange')" aria-label="Orange palette" title="Orange"></button>
+            </div>
+        </div>
     </nav>
 
     <!-- Main Content -->
@@ -135,25 +155,23 @@
         </footer>
     </main>
 
+    <script src="app.js"></script>
     <script src="script.js"></script>
     <script>
         // Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Simple validation (HTML5 required attribute handles basic validation)
-    if (name && email && message) {
-        // In a real application, this would send data to a server
-        showFormFeedback('Thank you for your message! We will get back to you soon.', 'success');
-        contactForm.reset();
-    }
-});
+        var contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var message = document.getElementById('message').value;
+                if (name && email && message) {
+                    showFormFeedback('Thank you for your message! We will get back to you soon.', 'success');
+                    contactForm.reset();
+                }
+            });
+        }
     </script>
 </body>
 </html>

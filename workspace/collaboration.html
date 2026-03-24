@@ -5,10 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Collaboration - Azurix Hub</title>
     <link rel="stylesheet" href="../styles.css">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var palette = localStorage.getItem('palette');
+                if (theme) document.documentElement.setAttribute('data-theme', theme);
+                if (palette) document.documentElement.setAttribute('data-palette', palette);
+            } catch (e) {}
+        }());
+    </script>
 </head>
 <body>
     <header>
         <h1>Your Collaboration Dashboard</h1>
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Switch to dark mode">🌙</button>
     </header>
 
     <footer class="footer">
@@ -16,5 +27,7 @@
         <p>&copy; 2026 Azurix. All rights reserved.</p>
         <p>Contact us: <a href="mailto:timothywallis@ucmerced.edu">timothywallis@ucmerced.edu</a></p>
     </div></footer>
+    <script src="../app.js"></script>
+    <script src="../script.js"></script>
 </body>
 </html>

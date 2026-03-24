@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account - Azurix Hub</title>
     <link rel="stylesheet" href="../styles.css">
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var palette = localStorage.getItem('palette');
+                if (theme) document.documentElement.setAttribute('data-theme', theme);
+                if (palette) document.documentElement.setAttribute('data-palette', palette);
+            } catch (e) {}
+        }());
+    </script>
 </head>
 
 <body>
     <header>
         <h1>Manage Your Account</h1>
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Switch to dark mode">🌙</button>
     </header>
     <div class="body-content">
         <nav id="account-nav" class="nav-links">
@@ -42,14 +53,33 @@
                 <h2>Collaboration</h2>
                 <p>Connect with other researchers, share your work, and collaborate on projects.</p>
             </div>
+            <hr>
+            <div class="settings" id="settings">
+                <h2>Settings</h2>
+                <div class="settings-row">
+                    <label for="theme-checkbox" class="settings-label">Dark Mode</label>
+                    <input type="checkbox" id="theme-checkbox" onchange="toggleTheme()" aria-label="Toggle dark mode">
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Color Palette</span>
+                    <div class="palette-swatches" aria-label="Color palette">
+                        <button class="palette-swatch palette-blue" data-palette-btn="blue" onclick="setPalette('blue')" aria-label="Blue palette" title="Blue"></button>
+                        <button class="palette-swatch palette-teal" data-palette-btn="teal" onclick="setPalette('teal')" aria-label="Teal palette" title="Teal"></button>
+                        <button class="palette-swatch palette-green" data-palette-btn="green" onclick="setPalette('green')" aria-label="Green palette" title="Green"></button>
+                        <button class="palette-swatch palette-purple" data-palette-btn="purple" onclick="setPalette('purple')" aria-label="Purple palette" title="Purple"></button>
+                        <button class="palette-swatch palette-orange" data-palette-btn="orange" onclick="setPalette('orange')" aria-label="Orange palette" title="Orange"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Azurix. All rights reserved.</p>
-            <p>Contact me at: <a href="mailto:timothywallis@ucmerced.edu" style="color: white; text-decoration: none;">timothywallis@ucmerced.edu</a></p>
+            <p>Contact me at: <a href="mailto:timothywallis@ucmerced.edu">timothywallis@ucmerced.edu</a></p>
         </div>
     </footer>
+    <script src="../app.js"></script>
     <script src="../script.js"></script>
 </body>
 

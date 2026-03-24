@@ -3,7 +3,6 @@ const MOBILE_BREAKPOINT = 768;
 
 // Sidebar Toggle Functionality
 const sidebar = document.getElementById('sidebar');
-const mainContent = document.getElementById('mainContent');
 
 // Smooth Scrolling for Navigation Links
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -68,6 +67,9 @@ window.addEventListener('scroll', updateActiveLink);
 
 // Form feedback function for better accessibility
 function showFormFeedback(message, type) {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
     const existingFeedback = document.querySelector('.form-feedback');
     if (existingFeedback) {
         existingFeedback.remove();
@@ -79,7 +81,7 @@ function showFormFeedback(message, type) {
     feedback.setAttribute('aria-live', 'polite');
     feedback.textContent = message;
     
-    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const submitButton = form.querySelector('button[type="submit"]');
     submitButton.parentNode.insertBefore(feedback, submitButton.nextSibling);
     
     setTimeout(() => {
