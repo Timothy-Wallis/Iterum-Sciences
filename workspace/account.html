@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account - Azurix Hub</title>
+    <title>Azurix</title>
     <link rel="stylesheet" href="../styles.css">
+    <!-- Apply saved theme/palette before first paint to prevent flash -->
+    <script>
+        (function(){
+            var t=localStorage.getItem('theme'), p=localStorage.getItem('palette');
+            if(t) document.documentElement.setAttribute('data-theme',t);
+            else if(matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme','dark');
+            if(p) document.documentElement.setAttribute('data-palette',p);
+        })();
+    </script>
 </head>
 
 <body class="account-page">
@@ -17,6 +26,9 @@
             <span></span>
         </button>
         <a href="../index.html" class="brand-name">Azurix Hub</a>
+        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
+            <span class="theme-icon">🌙</span>
+        </button>
         <div id="headerAuthArea" class="header-auth-area"></div>
     </header>
 
@@ -36,7 +48,7 @@
     <main class="main-content" id="mainContent">
         <div class="account-body">
             <!-- Auth state banner -->
-            <div id="authBanner" class="auth-banner" role="status" aria-live="polite"></div>
+            <div id="authBanner" class="auth-banner" role="status" aria-live="polite" hidden></div>
 
             <!-- Login form (shown when logged out) -->
             <section id="loginSection" class="account-section" hidden>
@@ -49,7 +61,7 @@
                         <label for="loginPassword">Password</label>
                         <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required>
                         <div id="loginError" class="form-feedback form-feedback-error" hidden></div>
-                        <input type="submit" value="Sign In" class="submit-btn-primary">
+                        <input type="submit" value="Sign In">
                     </form>
                 </div>
             </section>
@@ -78,7 +90,34 @@
                 <!-- Collaboration -->
                 <div class="account-card" id="collaboration">
                     <h2>Collaboration</h2>
-                    <p>Connect with other researchers, share your work, and collaborate on projects.</p>
+                    <p class="account-card-intro">Connect with other researchers, share your work, and collaborate on projects.</p>
+                    <div class="collab-grid">
+                        <div class="collab-card">
+                            <div class="collab-avatar">👩‍🔬</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Dr. Sarah Chen</p>
+                                <p class="collab-role">Genomics Researcher</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                        <div class="collab-card">
+                            <div class="collab-avatar">🧑‍🔬</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Prof. James Okafor</p>
+                                <p class="collab-role">Biology Educator</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                        <div class="collab-card">
+                            <div class="collab-avatar">👨‍💻</div>
+                            <div class="collab-info">
+                                <p class="collab-name">Alex Rivera</p>
+                                <p class="collab-role">Bioinformatics Student</p>
+                            </div>
+                            <span class="collab-badge">Active</span>
+                        </div>
+                    </div>
+                    <button class="btn-collab-invite" type="button">+ Invite Collaborator</button>
                 </div>
 
                 <hr class="account-divider">
@@ -86,7 +125,25 @@
                 <!-- Settings -->
                 <div class="account-card" id="settings">
                     <h2>Settings</h2>
-                    <p>Account preferences and configuration options coming soon.</p>
+                    <p class="account-card-intro">Customize your Azurix Hub experience.</p>
+
+                    <h3 class="settings-group-label">Appearance</h3>
+                    <div class="settings-row">
+                        <span>Dark mode</span>
+                        <label class="toggle-switch" aria-label="Toggle dark mode">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <h3 class="settings-group-label">Color Palette</h3>
+                    <div class="palette-grid">
+                        <button class="palette-swatch" data-palette="blue"   title="Blue"></button>
+                        <button class="palette-swatch" data-palette="green"  title="Green"></button>
+                        <button class="palette-swatch" data-palette="purple" title="Purple"></button>
+                        <button class="palette-swatch" data-palette="teal"   title="Teal"></button>
+                        <button class="palette-swatch" data-palette="rose"   title="Rose"></button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -135,7 +192,18 @@
         const profileFeedback = document.getElementById('profileFeedback');
 
         function showBanner(message, type = 'info') {
-            authBanner.textContent = message;
+            // Build banner with a close (✕) button
+            authBanner.innerHTML = '';
+            const text = document.createElement('span');
+            text.textContent = message;
+            const closeBtn = document.createElement('button');
+            closeBtn.className  = 'banner-close';
+            closeBtn.type       = 'button';
+            closeBtn.setAttribute('aria-label', 'Dismiss');
+            closeBtn.textContent = '✕';
+            closeBtn.addEventListener('click', () => { authBanner.hidden = true; });
+            authBanner.appendChild(text);
+            authBanner.appendChild(closeBtn);
             authBanner.className = `auth-banner auth-banner-${type}`;
             authBanner.hidden = false;
         }
@@ -145,13 +213,14 @@
         }
 
         function showLoginState() {
-            loginSection.hidden = false;
+            loginSection.hidden  = false;
             profileSection.hidden = true;
-            headerAuthArea.innerHTML = '<a href="#loginSection" class="btn btn-login">Sign In</a>';
+            // No Sign In button in the header — the form below is sufficient
+            headerAuthArea.innerHTML = '';
         }
 
         function showProfileState(user) {
-            loginSection.hidden = true;
+            loginSection.hidden  = true;
             profileSection.hidden = false;
             if (userEmailEl) userEmailEl.textContent = `Signed in as: ${user.email}`;
             if (accountEmailEl) accountEmailEl.value = user.email || '';
@@ -252,8 +321,8 @@
     </script>
 
     <script>
-        // Sidebar toggle for account page (reuses same pattern as main script.js)
-        const MOBILE_BP = 768;
+        // Sidebar toggle for account page
+        const MOBILE_BP   = 768;
         const accSidebar  = document.getElementById('accountNav');
         const accOverlay  = document.getElementById('sidebarOverlay');
         const accMenuBtn  = document.getElementById('menuBtn');
@@ -274,6 +343,7 @@
         accMenuBtn.addEventListener('click', accToggle);
         // Set correct initial aria-expanded on load
         accMenuBtn.setAttribute('aria-expanded', accIsMobile() ? 'false' : 'true');
+
         accOverlay.addEventListener('click', () => {
             accSidebar.classList.remove('mobile-open');
             accOverlay.classList.remove('active');
@@ -307,6 +377,9 @@
             });
         });
     </script>
+
+    <script src="../app.js"></script>
 </body>
 
 </html>
+

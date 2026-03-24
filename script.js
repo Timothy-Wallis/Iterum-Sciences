@@ -142,27 +142,6 @@ function updateActiveLink() {
 
 window.addEventListener('scroll', updateActiveLink);
 
-// Form feedback function for better accessibility
-function showFormFeedback(message, type) {
-    const existingFeedback = document.querySelector('.form-feedback');
-    if (existingFeedback) {
-        existingFeedback.remove();
-    }
-
-    const feedback = document.createElement('div');
-    feedback.className = `form-feedback form-feedback-${type}`;
-    feedback.setAttribute('role', 'status');
-    feedback.setAttribute('aria-live', 'polite');
-    feedback.textContent = message;
-
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    submitButton.parentNode.insertBefore(feedback, submitButton.nextSibling);
-
-    setTimeout(() => {
-        feedback.remove();
-    }, 5000);
-}
-
 // Add animation on scroll for feature cards
 const observerOptions = {
     threshold: 0.1,

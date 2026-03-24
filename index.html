@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azurix Hub - Biology Tools & Solutions</title>
+    <title>Azurix</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Apply saved theme/palette before first paint to prevent flash -->
+    <script>
+        (function(){
+            var t=localStorage.getItem('theme'), p=localStorage.getItem('palette');
+            if(t) document.documentElement.setAttribute('data-theme',t);
+            else if(matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme','dark');
+            if(p) document.documentElement.setAttribute('data-palette',p);
+        })();
+    </script>
 </head>
 <body>
     <!-- Sticky Header -->
@@ -15,6 +24,9 @@
             <span></span>
         </button>
         <a href="#home" class="brand-name">Azurix Hub</a>
+        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
+            <span class="theme-icon">🌙</span>
+        </button>
         <a href="workspace/account.html" class="btn btn-login">Login</a>
     </header>
 
@@ -28,7 +40,6 @@
             <li><a href="#about">About</a></li>
             <li><a href="#tools">Our Tools</a></li>
             <li><a href="#research">Research</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
@@ -44,7 +55,6 @@
                 </p>
                 <div class="cta-buttons">
                     <a href="#tools" class="btn btn-primary">Explore Tools</a>
-                    <a href="#contact" class="btn btn-secondary">Get Started</a>
                 </div>
             </div>
         </section>
@@ -111,31 +121,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="section bg-light">
-            <div class="container">
-                <h2>Get in Touch</h2>
-                <p class="section-intro">
-                    Ready to enhance your research capabilities? Contact us to learn 
-                    more about our tools and how we can support your work.
-                </p>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" placeholder="Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
@@ -146,24 +131,6 @@
     </main>
 
     <script src="script.js"></script>
-    <script>
-        // Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Simple validation (HTML5 required attribute handles basic validation)
-    if (name && email && message) {
-        // In a real application, this would send data to a server
-        showFormFeedback('Thank you for your message! We will get back to you soon.', 'success');
-        contactForm.reset();
-    }
-});
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
