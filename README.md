@@ -1,6 +1,6 @@
 # Azurix Hub
 
-**Azurix Hub** is the official web platform for Azurix — a company dedicated to delivering cutting-edge tools and resources for the biology and life sciences community. The platform serves educators, researchers, and laboratory teams with a suite of solutions designed to streamline workflows and support breakthrough discoveries.
+**Azurix Hub** is the official web platform for Azurix — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
 
 ---
 
@@ -14,7 +14,7 @@ Azurix Hub provides a centralized interface for accessing biology-focused teachi
 
 - **Biology Tool Suite** — Direct access to tools including teaching materials and genomics software.
 - **User Accounts** — Login and account management for personalized access.
-- **Team Collaboration** — A dedicated collaboration dashboard for working with research teams.
+- **Team Collaboration** — A dedicated collaboration dashboard for working with teams.
 - **Theme Support** — Light and dark mode with multiple color palette options, persisted across sessions via `localStorage`.
 - **Responsive Design** — Mobile-friendly layout with a collapsible sidebar navigation.
 - **No-Flash Theming** — Saved theme preferences are applied before the first paint to prevent a flash of unstyled content.
@@ -68,7 +68,7 @@ No build step is required. To run the project locally:
 | Tool                 | Description                                               | Link                                      |
 |----------------------|-----------------------------------------------------------|-------------------------------------------|
 | Teaching Materials   | Interactive resources for teaching biological systems     | [ecosystemsim.vercel.app](https://ecosystemsim.vercel.app/) |
-| Genomics Software    | Advanced tools for genomic sequencing and analysis        | [genomics-portal.vercel.app](https://genomics-portal.vercel.app/) |
+| Genomics Software    | Tools for exploring genomic data and concepts             | [genomics-portal.vercel.app](https://genomics-portal.vercel.app/) |
 
 ---
 
