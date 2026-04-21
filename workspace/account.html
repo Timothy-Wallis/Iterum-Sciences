@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iterum Sciences</title>
+    <link rel="stylesheet" href="../loadingStyle.css">
     <link rel="stylesheet" href="../styles.css">
     <!-- Apply saved theme/palette before first paint to prevent flash -->
     <script>
@@ -18,7 +19,36 @@
 </head>
 
 <body class="account-page">
+        <div id="loadingPage">
+        <div id="loadIcon">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <script>
+            window.addEventListener('load', function () {
+                let run = false;
+                let timeoutID = setTimeout(() => {
+                    var loadingPage = document.getElementById('loadingPage');
+                    loadingPage.classList.add('fade-out');
+
+                    let loaded = document.getElementById('loaded');
+                    if (loaded) {
+                        loaded.style.display = 'block';
+                    }
+                    if(run){
+                        clearTimeout(timeoutID);
+                        loadingPage.style.display = 'none';
+                    }
+                    run = true;
+                }, 1500);
+
+            });
+        </script>
+    </div>
     <!-- Sticky Header -->
+     <div id="loaded">
     <header class="site-header" id="siteHeader">
         <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="accountNav">
             <span></span>
@@ -236,9 +266,7 @@
 
         if (configMissing) {
             showBanner(
-                '⚙️  Supabase is not configured. ' +
-                'Open workspace/account.html and replace YOUR_SUPABASE_URL and YOUR_SUPABASE_ANON_KEY with your project credentials.',
-                'warning'
+                '⚙️  This is currently in development. To view updates, visit Github.', 'warning'
             );
             // Sign-in screen is temporarily disabled; login section stays hidden
         } else {
@@ -387,6 +415,7 @@
     </script>
 
     <script src="../app.js"></script>
+    </div>
 </body>
 
 </html>

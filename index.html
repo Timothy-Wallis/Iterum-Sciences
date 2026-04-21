@@ -1,147 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iterum Sciences</title>
+    <link rel="stylesheet" href="loadingStyle.css">
     <link rel="stylesheet" href="styles.css">
     <!-- Apply saved theme/palette before first paint to prevent flash -->
-     <meta name="description" content="A website hosting educational tools for teaching. In another suite there is available programs for geonomic analysis." />
-     <meta name="robots" content="index, follow"/>
-     <meta name="author" content="Timothy Wallis"/> 
-     <meta property="og:title" content="Iterum Sciences"/>
+    <meta name="description"
+        content="A website hosting educational tools for teaching. In another suite there is available programs for geonomic analysis." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Timothy Wallis" />
+    <meta property="og:title" content="Iterum Sciences" />
     <script>
-        (function(){
-            var t=localStorage.getItem('theme'), p=localStorage.getItem('palette');
-            if(t) document.documentElement.setAttribute('data-theme',t);
-            else if(matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme','dark');
-            if(p) document.documentElement.setAttribute('data-palette',p);
+        (function () {
+            var t = localStorage.getItem('theme'), p = localStorage.getItem('palette');
+            if (t) document.documentElement.setAttribute('data-theme', t);
+            else if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme', 'dark');
+            if (p) document.documentElement.setAttribute('data-palette', p);
         })();
     </script>
 </head>
+
 <body>
+    <!--Loading dom Content-->
+    <div id="loadingPage">
+        <div id="loadIcon">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <script>
+            window.addEventListener('load', function () {
+                let run = false;
+                let timeoutID = setTimeout(() => {
+                    var loadingPage = document.getElementById('loadingPage');
+                    loadingPage.classList.add('fade-out');
+
+                    let loaded = document.getElementById('loaded');
+                    if (loaded) {
+                        loaded.style.display = 'block';
+                    }
+                    if(run){
+                        clearTimeout(timeoutID);
+                        loadingPage.style.display = 'none';
+                    }
+                    run = true;
+                }, 2000);
+
+            });
+        </script>
+    </div>
     <!-- Sticky Header -->
-    <header class="site-header" id="siteHeader">
-        <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <a href="#home" class="brand-name">Iterum Sciences</a>
-        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
-            <span class="theme-icon-light" aria-hidden="true">🌙</span>
-            <span class="theme-icon-dark"  aria-hidden="true">☀️</span>
-        </button>
-        <a href="workspace/account.html" class="btn btn-login">Login</a>
-    </header>
+    <div id="loaded">
+        <header class="site-header" id="siteHeader">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false"
+                aria-controls="sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="#home" class="brand-name">Iterum Sciences</a>
+            <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode">
+                <span class="theme-icon-light" aria-hidden="true">🌙</span>
+                <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+            </button>
+            <a href="workspace/account.html" class="btn btn-login">Login</a>
+        </header>
 
-    <!-- Mobile overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <!-- Mobile overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar" id="sidebar">
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#tools">Our Tools</a></li>
-            <li><a href="#research">Research</a></li>
-        </ul>
-    </nav>
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tools">Our Tools</a></li>
+                <li><a href="#research">Research</a></li>
+            </ul>
+        </nav>
 
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>Welcome to Iterum Sciences</h1>
-                <p class="hero-subtitle">Biology Tools & Solutions for Teaching and Research</p>
-                <p class="hero-description">
-                    Providing Teachers and Researchers with cutting-edge tools for any workflow in biological sciences. Explore our suite of solutions designed to enhance your research and teaching capabilities.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#tools" class="btn btn-primary">Explore Tools</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <h2>About Iterum Sciences</h2>
-                <p>
-                    Iterum Sciences is built for biology instructors, students, and small research teams
-                    who need practical teaching tools they can use right away. We started this platform
-                    to make classroom-ready simulations and research support resources easier to find,
-                    use, and share in one place.
-                </p>
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-icon">🔬</div>
-                        <h3>Advanced Research</h3>
-                        <p>Tools designed for cutting-edge biological research and analysis</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>High Performance</h3>
-                        <p>Optimized solutions for fast and accurate results</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🤝</div>
-                        <h3>Collaborative</h3>
-                        <p>Built for teams to work together seamlessly</p>
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to Iterum Sciences</h1>
+                    <p class="hero-subtitle">Biology Tools & Solutions for Teaching and Research</p>
+                    <p class="hero-description">
+                        Providing Teachers and Researchers with cutting-edge tools for any workflow in biological
+                        sciences.
+                        Explore our suite of solutions designed to enhance your research and teaching capabilities.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#tools" class="btn btn-primary">Explore Tools</a>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Tools Section -->
-        <section id="tools" class="section bg-light">
-            <div class="container">
-                <h2>Our Tools</h2>
-                <p class="section-intro">
-                    Start with our live ecosystem simulator, then follow upcoming releases as we expand
-                    the toolkit.
-                </p>
-                <div class="tools-grid">
-                    <div class="tool-card">
-                        <h3>Teaching Materials</h3>
-                        <p>Launch the live ecosystem simulator used to teach about biological systems</p>
-                        <a class="tool-launch-btn" href="https://ecosystemsim.vercel.app/" target="_blank" rel="noopener noreferrer">Launch ↗</a>
-                    </div>
-                    <div class="tool-card coming-soon">
-                        <h3>Genomics Software</h3>
-                        <p>Tools for exploring genomic data and concepts are currently in development.</p>
-                        <span class="tool-badge">Coming Soon</span>
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="container">
+                    <h2>About Iterum Sciences</h2>
+                    <p>
+                        Iterum Sciences is deticated to developing tools for teaching and leading research in biological
+                        sciences. Our mission is to allow for teaching and research to be done easier on the web, with a
+                        focus on performace, and optimizations for workflows in this space.
+                    </p>
+                    <div class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔬</div>
+                            <h3>New Research Tools</h3>
+                            <p>Tools designed for cutting-edge biological research and analysis</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>High Performance</h3>
+                            <p>Optimized solutions for both teaching and research</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>Collaborative</h3>
+                            <p>Built in collaboration features for seamless teamwork</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Research Section -->
-        <section id="research" class="section">
-            <div class="container">
-                <h2>Research & Development</h2>
-                <p>
-                    We are actively iterating on the platform with a teaching-first roadmap.
-                </p>
-                <ul class="roadmap-list">
-                    <li><strong>Now:</strong> Live ecosystem simulation for classroom use and demonstrations.</li>
-                    <li><strong>Next:</strong> Genomics software release with guided teaching workflows.</li>
-                    <li><strong>Planned:</strong> Public changelog and milestone updates for each tool release.</li>
-                </ul>
-            </div>
-        </section>
+            <!-- Tools Section -->
+            <section id="tools" class="section bg-light">
+                <div class="container">
+                    <h2>Our Tools</h2>
+                    <p class="section-intro">
+                        Start with our live ecosystem simulator, then follow upcoming releases as we expand
+                        the toolkit.
+                    </p>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <h3>Teaching Materials</h3>
+                            <p>Launch the live ecosystem simulator used to teach about biological systems</p>
+                            <a class="tool-launch-btn" href="https://ecosystemsim.vercel.app/" target="_blank"
+                                rel="noopener noreferrer">Launch ↗</a>
+                        </div>
+                        <div class="tool-card coming-soon">
+                            <h3>Genomics Software</h3>
+                            <p>Tools for exploring genomic data and concepts are currently in development.</p>
+                            <span class="tool-badge">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <p>&copy; 2026 Iterum Sciences. All rights reserved.</p>
-                <p>Biological tools for Research | Teaching</p>
-            </div>
-        </footer>
-    </main>
+            <!-- Research Section -->
+            <section id="research" class="section">
+                <div class="container">
+                    <h2>Research & Development</h2>
+                    <p class="section-intro">
+                        We are actively developing new tools and features to support both teaching and research in the
+                        biological scene.
+                    </p>
+                    <ul class="roadmap-list">
+                        <li><strong style="color: green">Current:</strong> Live ecosystem simulation for classroom use
+                            and
+                            demonstrations.</li>
+                        <li><strong style="color: yellow">Next Release:</strong> Genomics software release with guided
+                            teaching workflows.</li>
+                        <li><strong style="color: orange">Future Releases:</strong> Public changelog and milestone
+                            updates
+                            for each tool release.</li>
+                    </ul>
+                </div>
+            </section>
 
-    <script src="script.js"></script>
-    <script src="app.js"></script>
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <p>&copy; 2026 Iterum Sciences. All rights reserved.</p>
+                    <p>Biological tools for Teaching & Research</p>
+                </div>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+        <script src="app.js"></script>
+    </div>
 </body>
+
 </html>
