@@ -1342,13 +1342,7 @@ body {
 
 .glass-interactive {
     position: relative;
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.sidebar.glass-interactive {
-    /* Keep sidebar scrollable while preserving shared glass highlight behavior */
-    overflow-y: auto;
+    z-index: 0;
 }
 
 .glass-interactive::before {
@@ -1356,7 +1350,7 @@ body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
     background: radial-gradient(180px circle at var(--mx, -160px) var(--my, -160px), rgba(255, 255, 255, 0.35), transparent 65%);
     transition: opacity 0.25s ease;
 }
