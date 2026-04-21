@@ -72,7 +72,7 @@ No build step is required. To run the project locally:
 | Tool                 | Description                                               | Link                                      |
 |----------------------|-----------------------------------------------------------|-------------------------------------------|
 | Teaching Materials   | Interactive resources for teaching biological systems     | [ecosystemsim.vercel.app](https://ecosystemsim.vercel.app/) |
-| Genomics Software    | Tools for exploring genomic data and concepts             | Under Development |
+| Genomics Software    | Tools for exploring genomic data and concepts             | ![Under Development](https://img.shields.io/badge/Status-Unavailable-yellow) |
 
 ---
 
