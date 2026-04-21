@@ -460,6 +460,23 @@ body {
     color: var(--badge-text);
 }
 
+.tool-launch-btn {
+    display: inline-block;
+    margin-top: 1.25rem;
+    padding: 0.5rem 1.25rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.tool-launch-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
 .roadmap-list {
     max-width: 760px;
     margin: 1.5rem auto 0;
