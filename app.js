@@ -91,10 +91,20 @@ function applyCustomColorVars(hex) {
     const [h, s, l] = hexToHsl(hex);
     const secondary = hslToHex(h, s, Math.max(0, l + CUSTOM_SECONDARY_LIGHTNESS_OFFSET));
     const accent    = hslToHex(h, s, Math.min(CUSTOM_LIGHTNESS_MAX, l + CUSTOM_ACCENT_LIGHTNESS_OFFSET));
+    const [r, g, b] = [
+        parseInt(hex.slice(1, 3), 16),
+        parseInt(hex.slice(3, 5), 16),
+        parseInt(hex.slice(5, 7), 16)
+    ];
+    // Derive a complementary base background: very light tint of the custom color
+    const bgBase = `hsl(${h}, ${Math.round(s * 0.4)}%, 90%)`;
     const root = document.documentElement;
     root.style.setProperty('--primary-color',   hex);
     root.style.setProperty('--secondary-color', secondary);
     root.style.setProperty('--accent-color',    accent);
+    root.style.setProperty('--glass-tint',      `rgba(${r}, ${g}, ${b}, 0.22)`);
+    root.style.setProperty('--glass-tint-hover',`rgba(${r}, ${g}, ${b}, 0.36)`);
+    root.style.setProperty('--bg-base',         bgBase);
 }
 
 function clearCustomColorVars() {
@@ -102,6 +112,9 @@ function clearCustomColorVars() {
     root.style.removeProperty('--primary-color');
     root.style.removeProperty('--secondary-color');
     root.style.removeProperty('--accent-color');
+    root.style.removeProperty('--glass-tint');
+    root.style.removeProperty('--glass-tint-hover');
+    root.style.removeProperty('--bg-base');
 }
 
 function setCustomColor(hex) {

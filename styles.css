@@ -17,12 +17,22 @@
     --header-height: 60px;
     --transition-speed: 0.3s;
     --offset-color-text: #afc5ec;
+
+    /* ── Liquid Glass ── */
+    --bg-base: #d6e4ff;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-bg-hover: rgba(255, 255, 255, 0.38);
+    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    --glass-tint: rgba(37, 99, 235, 0.22);
+    --glass-tint-hover: rgba(37, 99, 235, 0.36);
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background: var(--bg-base);
     overflow-x: hidden;
 }
 
@@ -35,14 +45,17 @@ body {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    background: var(--glass-tint);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
     color: white;
     display: flex;
     align-items: center;
     padding: 0 1.25rem;
     gap: 1rem;
     z-index: 1100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Hamburger button */
@@ -102,21 +115,24 @@ body {
 
 /* Login button */
 .btn-login {
-    background: white;
-    color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
     padding: 0.45rem 1.1rem;
     border-radius: 0.375rem;
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
-    transition: background var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background var(--transition-speed), box-shadow var(--transition-speed);
     flex-shrink: 0;
 }
 
 .btn-login:hover {
-    background: var(--bg-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* =====================
@@ -128,13 +144,16 @@ body {
     left: 0;
     height: calc(100vh - var(--header-height));
     width: var(--sidebar-width);
-    background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: var(--glass-tint);
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
     color: white;
     transition: transform var(--transition-speed) ease, width var(--transition-speed) ease;
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    border-right: 1px solid var(--glass-border);
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
 }
 
 /* Mobile overlay backdrop */
@@ -316,7 +335,7 @@ body {
 }
 
 .bg-light {
-    background: var(--bg-light);
+    background: rgba(243, 244, 246, 0.5);
 }
 
 .container {
@@ -348,17 +367,21 @@ body {
 }
 
 .feature-card {
-    background: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     padding: 2rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: var(--glass-bg-hover);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .feature-icon {
@@ -381,17 +404,21 @@ body {
 }
 
 .tool-card {
-    background: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     padding: 2rem;
     border-radius: 0.75rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--glass-border);
     border-left: 4px solid var(--primary-color);
+    box-shadow: var(--glass-shadow);
     transition: all 0.3s ease;
 }
 
 .tool-card:hover {
     transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background: var(--glass-bg-hover);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .tool-card h3 {
@@ -424,10 +451,13 @@ body {
 .contact-form {
     max-width: 600px;
     margin: 2rem auto;
-    background: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     padding: 2rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .form-group {
@@ -576,9 +606,9 @@ section {
    Account Page Styles
    ===================== */
 
-/* Account body: give main-content a light bg */
+/* Account body: transparent bg so glass depth is visible */
 .account-page .main-content {
-    background: var(--bg-light);
+    background: transparent;
 }
 
 .account-body {
@@ -628,10 +658,13 @@ section {
 
 /* Account card */
 .account-card {
-    background: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border-radius: 0.75rem;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
 .account-card h2 {
@@ -678,8 +711,8 @@ section {
 .account-card .content input[type="password"] {
     margin-bottom: 1.1rem;
     padding: 0.6rem 1rem;
-    border: 2px solid #e5e7eb;
-    background: var(--bg-light);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.55);
     color: var(--text-color);
     border-radius: 0.5rem;
     font-size: 1rem;
@@ -692,7 +725,7 @@ section {
 .account-card .content input[type="password"]:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: white;
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .account-card .content input[type="submit"] {
@@ -788,36 +821,54 @@ section {
     --primary-color: #16a34a;
     --secondary-color: #15803d;
     --accent-color: #22c55e;
+    --bg-base: #d1f5e0;
+    --glass-tint: rgba(22, 163, 74, 0.22);
+    --glass-tint-hover: rgba(22, 163, 74, 0.36);
 }
 
 [data-palette="purple"] {
     --primary-color: #7c3aed;
     --secondary-color: #6d28d9;
     --accent-color: #8b5cf6;
+    --bg-base: #ede9fe;
+    --glass-tint: rgba(124, 58, 237, 0.22);
+    --glass-tint-hover: rgba(124, 58, 237, 0.36);
 }
 
 [data-palette="teal"] {
     --primary-color: #0d9488;
     --secondary-color: #0f766e;
     --accent-color: #14b8a6;
+    --bg-base: #ccfbf1;
+    --glass-tint: rgba(13, 148, 136, 0.22);
+    --glass-tint-hover: rgba(13, 148, 136, 0.36);
 }
 
 [data-palette="rose"] {
     --primary-color: #e11d48;
     --secondary-color: #be123c;
     --accent-color: #fb7185;
+    --bg-base: #ffe4e6;
+    --glass-tint: rgba(225, 29, 72, 0.22);
+    --glass-tint-hover: rgba(225, 29, 72, 0.36);
 }
 
 [data-palette="orange"] {
     --primary-color: #ea580c;
     --secondary-color: #c2410c;
     --accent-color: #fb923c;
+    --bg-base: #ffedd5;
+    --glass-tint: rgba(234, 88, 12, 0.22);
+    --glass-tint-hover: rgba(234, 88, 12, 0.36);
 }
 
 [data-palette="indigo"] {
     --primary-color: #4338ca;
     --secondary-color: #3730a3;
     --accent-color: #6366f1;
+    --bg-base: #e0e7ff;
+    --glass-tint: rgba(67, 56, 202, 0.22);
+    --glass-tint-hover: rgba(67, 56, 202, 0.36);
 }
 
 /* =====================
@@ -828,19 +879,25 @@ section {
     --text-light: #94a3b8;
     --bg-light: #1e293b;
     --bg-white: #0f172a;
+    /* Glass overrides for dark theme */
+    --bg-base: #080e1f;
+    --glass-bg: rgba(15, 23, 42, 0.28);
+    --glass-bg-hover: rgba(15, 23, 42, 0.42);
+    --glass-border: rgba(255, 255, 255, 0.09);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 [data-theme="dark"] body {
-    background-color: var(--bg-white);
+    background: var(--bg-base);
     color: var(--text-color);
 }
 
 [data-theme="dark"] .section {
-    background: var(--bg-white);
+    background: transparent;
 }
 
 [data-theme="dark"] .bg-light {
-    background: var(--bg-light);
+    background: rgba(30, 41, 59, 0.45);
 }
 
 [data-theme="dark"] .section h2,
@@ -850,7 +907,6 @@ section {
 
 [data-theme="dark"] .feature-card,
 [data-theme="dark"] .tool-card {
-    background: var(--bg-light);
     color: var(--text-color);
 }
 
@@ -860,7 +916,6 @@ section {
 }
 
 [data-theme="dark"] .account-card {
-    background: var(--bg-light);
     color: var(--text-color);
 }
 
@@ -876,24 +931,24 @@ section {
 [data-theme="dark"] .account-card .content input[type="text"],
 [data-theme="dark"] .account-card .content input[type="email"],
 [data-theme="dark"] .account-card .content input[type="password"] {
-    background: #1e293b;
-    border-color: #334155;
+    background: rgba(15, 23, 42, 0.55);
+    border-color: rgba(255, 255, 255, 0.12);
     color: var(--text-color);
 }
 
 [data-theme="dark"] .account-card .content input[type="text"]:focus,
 [data-theme="dark"] .account-card .content input[type="email"]:focus,
 [data-theme="dark"] .account-card .content input[type="password"]:focus {
-    background: #0f172a;
+    background: rgba(15, 23, 42, 0.75);
     border-color: var(--primary-color);
 }
 
 [data-theme="dark"] .account-divider {
-    border-color: #334155;
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .account-page .main-content {
-    background: var(--bg-white);
+    background: transparent;
 }
 
 [data-theme="dark"] .auth-banner-warning {
@@ -1092,12 +1147,20 @@ section {
     gap: 0.875rem;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
-    background: var(--bg-light);
-    transition: background var(--transition-speed);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    transition: background var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.collab-card:hover {
+    background: var(--glass-bg-hover);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .collab-card {
-    background: #0f172a;
+    background: var(--glass-bg);
 }
 
 .collab-avatar {
