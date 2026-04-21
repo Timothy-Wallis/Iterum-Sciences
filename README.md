@@ -1,6 +1,6 @@
-# Azurix Hub
+# Azurix
 
-**Azurix Hub** is the official web platform for Azurix — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
+**Azurix** is the official web platform for Azurix — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
 
 ---
 
@@ -68,7 +68,7 @@ No build step is required. To run the project locally:
 | Tool                 | Description                                               | Link                                      |
 |----------------------|-----------------------------------------------------------|-------------------------------------------|
 | Teaching Materials   | Interactive resources for teaching biological systems     | [ecosystemsim.vercel.app](https://ecosystemsim.vercel.app/) |
-| Genomics Software    | Tools for exploring genomic data and concepts             | [genomics-portal.vercel.app](https://genomics-portal.vercel.app/) |
+| Genomics Software    | Tools for exploring genomic data and concepts             | Under Development |
 
 ---
 
