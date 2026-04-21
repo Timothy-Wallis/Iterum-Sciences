@@ -1,12 +1,12 @@
-# Iterum
+# Iterum Sciences
 
-**Iterum** is the official web platform for Azurix — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
+**Iterum Sciences** is the official web platform for Azurix — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
 
 ---
 
 ## Overview
 
-Iterum provides a centralized interface for accessing biology-focused teaching materials, genomics software, and collaborative workspace features. The site is built as a lightweight, fully client-side web application with no external runtime dependencies.
+Iterum Sciences provides a centralized interface for accessing biology-focused teaching materials, genomics software, and collaborative workspace features. The site is built as a lightweight, fully client-side web application with no external runtime dependencies.
 
 ---
 
@@ -24,7 +24,7 @@ Iterum provides a centralized interface for accessing biology-focused teaching m
 ## Project Structure
 
 ```
-Iterum/
+Iterum Sciences/
 ├── index.html              # Main landing page
 ├── styles.css              # Global stylesheet
 ├── app.js                  # Shared application logic (theming, sidebar)
@@ -54,7 +54,7 @@ No build step is required. To run the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Timothy-Wallis/Iterum.git
+   git clone https://github.com/Timothy-Wallis/Iterum-Sciences.git
    ```
 2. Open `index.html` in your browser, or serve the directory with any static file server:
    ```bash
@@ -80,4 +80,4 @@ For questions or support, please reach out at **timothywallis@ucmerced.edu**.
 
 ## License
 
-© 2026 Iterum. All rights reserved. See [LICENSE](LICENSE) for details.
+© 2026 Iterum Sciences. All rights reserved. See [LICENSE](LICENSE) for details.
