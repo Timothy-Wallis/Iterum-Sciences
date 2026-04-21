@@ -34,8 +34,16 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background: var(--bg-base);
+    background: linear-gradient(-45deg, #ffffff, #f3f4f6, #e5e7eb, #f9fafb);
+    background-size: 400% 400%;
+    animation: bg-gradient 15s ease infinite;
     overflow-x: hidden;
+}
+
+@keyframes bg-gradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* =====================
@@ -449,25 +457,25 @@ body {
     color: var(--primary-color);
 }
 
-.tool-badge {
+/* Shared pill style for tool-card action elements */
+.tool-badge,
+.tool-launch-btn {
     display: inline-block;
-    margin-top: 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.2rem 0.55rem;
+    margin-top: 1.25rem;
+    padding: 0.4rem 1.1rem;
     border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tool-badge {
     background: var(--badge-bg);
     color: var(--badge-text);
 }
 
 .tool-launch-btn {
-    display: inline-block;
-    margin-top: 1.25rem;
-    padding: 0.5rem 1.25rem;
     background: var(--primary-color);
     color: #fff;
-    border-radius: 0.5rem;
-    font-weight: 600;
     text-decoration: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
