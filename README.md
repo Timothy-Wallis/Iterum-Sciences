@@ -54,7 +54,7 @@ No build step is required. To run the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Timothy-Wallis/Iterum Sciences.git
+   git clone https://github.com/Timothy-Wallis/Iterum-Sciences.git
    ```
 2. Open `index.html` in your browser, or serve the directory with any static file server:
    ```bash
