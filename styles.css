@@ -26,6 +26,8 @@
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     --glass-tint: rgba(37, 99, 235, 0.22);
     --glass-tint-hover: rgba(37, 99, 235, 0.36);
+    --badge-bg: #fef3c7;
+    --badge-text: #92400e;
 }
 
 body {
@@ -450,12 +452,12 @@ body {
 .tool-badge {
     display: inline-block;
     margin-top: 0.75rem;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 600;
     padding: 0.2rem 0.55rem;
     border-radius: 9999px;
-    background: #fef3c7;
-    color: #92400e;
+    background: var(--badge-bg);
+    color: var(--badge-text);
 }
 
 .roadmap-list {
@@ -919,6 +921,8 @@ section {
     --glass-bg-hover: rgba(15, 23, 42, 0.42);
     --glass-border: rgba(255, 255, 255, 0.09);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    --badge-bg: #78350f;
+    --badge-text: #fde68a;
 }
 
 [data-theme="dark"] body {
