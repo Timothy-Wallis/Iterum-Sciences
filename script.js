@@ -158,6 +158,25 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
+function setupGlassInteractions() {
+    const glassElements = document.querySelectorAll('.site-header, .sidebar, .feature-card, .tool-card, .contact-form, .account-card, .collab-card');
+
+    glassElements.forEach((element) => {
+        element.classList.add('glass-interactive');
+
+        element.addEventListener('pointermove', (event) => {
+            const bounds = element.getBoundingClientRect();
+            element.style.setProperty('--mx', `${event.clientX - bounds.left}px`);
+            element.style.setProperty('--my', `${event.clientY - bounds.top}px`);
+        });
+
+        element.addEventListener('pointerleave', () => {
+            element.style.removeProperty('--mx');
+            element.style.removeProperty('--my');
+        });
+    });
+}
+
 // Observe all feature cards and tool cards
 document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.feature-card, .tool-card');
@@ -167,4 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(card);
     });
+
+    setupGlassInteractions();
 });
