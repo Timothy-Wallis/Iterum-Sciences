@@ -1,5 +1,6 @@
 // Constants
 const MOBILE_BREAKPOINT = 768;
+const GLASS_INTERACTIVE_ELEMENTS_SELECTOR = '.site-header, .sidebar, .feature-card, .tool-card, .contact-form, .account-card, .collab-card';
 
 // Elements
 const sidebar = document.getElementById('sidebar');
@@ -159,20 +160,42 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 function setupGlassInteractions() {
-    const glassElements = document.querySelectorAll('.site-header, .sidebar, .feature-card, .tool-card, .contact-form, .account-card, .collab-card');
+    const glassElements = document.querySelectorAll(GLASS_INTERACTIVE_ELEMENTS_SELECTOR);
 
     glassElements.forEach((element) => {
+        let bounds = null;
+        let rafPending = false;
+        let pointerX = 0;
+        let pointerY = 0;
+
+        const updateBounds = () => {
+            bounds = element.getBoundingClientRect();
+        };
+
+        const applyPointerHighlight = () => {
+            rafPending = false;
+            if (!bounds) updateBounds();
+            if (!bounds) return;
+            element.style.setProperty('--mx', `${pointerX - bounds.left}px`);
+            element.style.setProperty('--my', `${pointerY - bounds.top}px`);
+        };
+
         element.classList.add('glass-interactive');
 
+        element.addEventListener('pointerenter', updateBounds);
         element.addEventListener('pointermove', (event) => {
-            const bounds = element.getBoundingClientRect();
-            element.style.setProperty('--mx', `${event.clientX - bounds.left}px`);
-            element.style.setProperty('--my', `${event.clientY - bounds.top}px`);
+            pointerX = event.clientX;
+            pointerY = event.clientY;
+            if (!rafPending) {
+                rafPending = true;
+                window.requestAnimationFrame(applyPointerHighlight);
+            }
         });
 
         element.addEventListener('pointerleave', () => {
             element.style.removeProperty('--mx');
             element.style.removeProperty('--my');
+            bounds = null;
         });
     });
 }

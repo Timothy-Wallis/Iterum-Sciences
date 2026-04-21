@@ -1291,10 +1291,7 @@ body {
 }
 
 .btn-primary,
-.btn-secondary {
-    color: white;
-}
-
+.btn-secondary,
 .btn-login {
     color: white;
 }
