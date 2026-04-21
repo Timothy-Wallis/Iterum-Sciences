@@ -1,7 +1,7 @@
 # Iterum Sciences
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-https://iterum-sciences.vercel.app-brightgreen)](https://https://iterum-sciences.vercel.app)
-[![License: MIT](https://img.shields.io/badge/License-Apache-2.0-blue.svg)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-https://iterum--sciences.vercel.app-brightgreen)](https://iterum-sciences.vercel.app)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 ![Version](https://img.shields.io/badge/version-0.0.3-informational)
 
 **Iterum Sciences** is the official web platform for Iterum Sciences — a company dedicated to delivering useful tools and resources for the biology and life sciences community. The platform serves educators and students with a suite of solutions designed to streamline workflows and support learning in the biological sciences.
