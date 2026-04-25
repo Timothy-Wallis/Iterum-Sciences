@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 /* =====================
    Reset and Base
@@ -588,7 +588,7 @@ body {
 }
 
 .hero h1 {
-    font-family: 'Bodoni Moda SC', Georgia, serif;
+    font-family: 'SN Pro', Georgia, serif;
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -601,7 +601,7 @@ body {
 }
 
 .hero-subtitle {
-    font-family: 'Bodoni Moda SC', Georgia, serif;
+    font-family: 'SN Pro', Georgia, serif;
     font-size: 1.5rem;
     margin-bottom: 1rem;
     font-weight: 400;
