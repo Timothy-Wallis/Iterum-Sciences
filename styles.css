@@ -532,7 +532,12 @@ body {
    Hero
    ===================== */
 .hero {
-    color: var(--text-color);
+    background-image: url('./assets/background-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+    background-color: rgba(150, 150, 150, .9);
+    color: var(--text-inverse);
     padding: 6rem 2rem;
     min-height: 100vh;
     display: flex;
