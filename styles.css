@@ -35,7 +35,7 @@ section {
 
     /* Surfaces */
     --bg-base:         #f3f4f6;
-    --bg-section-alt:  rgba(233, 233, 233, 0.5);
+    --bg-section-alt:  rgba(255, 255, 255, 0.06);
 
     /* Text */
     --text-color:      #1f2937;
@@ -46,15 +46,24 @@ section {
     /* Glass system */
     --glass-tint:      rgba(37, 99, 235, 0.22);
     --glass-tint-hover:rgba(37, 99, 235, 0.36);
-    --glass-bg:        rgba(255, 255, 255, 0.25);
-    --glass-bg-hover:  rgba(255, 255, 255, 0.38);
-    --glass-border:    rgba(255, 255, 255, 0.55);
+    --glass-bg:        rgba(255, 255, 255, 0.12);
+    --glass-bg-hover:  rgba(255, 255, 255, 0.22);
+    --glass-border:    rgba(255, 255, 255, 0.65);
     --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
     /* Inputs */
     --input-bg:        rgba(255, 255, 255, 0.55);
     --input-bg-focus:  rgba(255, 255, 255, 0.75);
     --input-border:    rgba(0, 0, 0, 0.12);
+
+    /* Animated gradient blobs */
+    --blob-size-1:          520px;
+    --blob-size-2:          400px;
+    --blob-size-3:          460px;
+    --blob-size-4:          380px;
+    --blob-opacity:         0.40;
+    --blob-blur:            80px;
+    --blob-anim-duration:   28s;
 
     /* Misc */
     --badge-bg:        #fef3c7;
@@ -94,13 +103,13 @@ section {
    ===================== */
 [data-theme="dark"] {
     --bg-base:          #000435;
-    --bg-section-alt:   rgba(9, 7, 43, 0.45);
+    --bg-section-alt:   rgba(9, 7, 43, 0.25);
 
     --text-color:       #f1f5f9;
     --text-light:       #94a3b8;
 
-    --glass-bg:         rgba(15, 23, 42, 0.28);
-    --glass-bg-hover:   rgba(15, 23, 42, 0.42);
+    --glass-bg:         rgba(15, 23, 42, 0.15);
+    --glass-bg-hover:   rgba(15, 23, 42, 0.28);
     --glass-border:     rgba(255, 255, 255, 0.09);
     --glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
@@ -115,6 +124,8 @@ section {
 
     --collab-badge-bg:   #064e3b;
     --collab-badge-text: #6ee7b7;
+
+    --blob-opacity:     0.30;
 
     --banner-warn-bg:     #451a03;
     --banner-warn-text:   #fcd34d;
@@ -179,8 +190,90 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background: var(--bg-base);
+    /* bg-base is a fallback for browsers without backdrop-filter support */
+    background: transparent;
     overflow-x: hidden;
+}
+
+/* =====================
+   Animated Gradient Background
+   ===================== */
+#bg-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    /* Solid base colour so the page is never transparent to the OS desktop */
+    background: var(--bg-base);
+}
+
+#bg-gradient span {
+    position: absolute;
+    border-radius: 50%;
+    opacity: var(--blob-opacity);
+    filter: blur(var(--blob-blur));
+    will-change: transform;
+}
+
+/* Blob 1 — primary colour, top-left */
+#bg-gradient span:nth-child(1) {
+    width: var(--blob-size-1);
+    height: var(--blob-size-1);
+    background: var(--primary-color);
+    top: -10%;
+    left: -8%;
+    animation: blobFloat1 var(--blob-anim-duration) ease-in-out infinite alternate;
+}
+
+/* Blob 2 — accent colour, bottom-right */
+#bg-gradient span:nth-child(2) {
+    width: var(--blob-size-2);
+    height: var(--blob-size-2);
+    background: var(--accent-color);
+    bottom: -12%;
+    right: -6%;
+    animation: blobFloat2 calc(var(--blob-anim-duration) * 1.2) ease-in-out infinite alternate;
+}
+
+/* Blob 3 — secondary colour, centre */
+#bg-gradient span:nth-child(3) {
+    width: var(--blob-size-3);
+    height: var(--blob-size-3);
+    background: var(--secondary-color);
+    top: 40%;
+    left: 35%;
+    animation: blobFloat3 calc(var(--blob-anim-duration) * 0.9) ease-in-out infinite alternate;
+}
+
+/* Blob 4 — glass tint, top-right accent */
+#bg-gradient span:nth-child(4) {
+    width: var(--blob-size-4);
+    height: var(--blob-size-4);
+    background: var(--glass-tint);
+    top: 5%;
+    right: 10%;
+    animation: blobFloat1 calc(var(--blob-anim-duration) * 1.4) ease-in-out infinite alternate-reverse;
+}
+
+@keyframes blobFloat1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(6%, 8%) scale(1.04); }
+    66%  { transform: translate(-4%, 12%) scale(0.97); }
+    100% { transform: translate(8%, -6%) scale(1.06); }
+}
+
+@keyframes blobFloat2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(-8%, -5%) scale(1.05); }
+    66%  { transform: translate(5%, -10%) scale(0.96); }
+    100% { transform: translate(-10%, 7%) scale(1.03); }
+}
+
+@keyframes blobFloat3 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-7%, 6%) scale(1.07); }
+    100% { transform: translate(9%, -8%) scale(0.95); }
 }
 
 /* =====================
@@ -440,12 +533,7 @@ body {
    Hero
    ===================== */
 .hero {
-    background-image: url('./assets/background-image.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: multiply;
-    background-color: rgba(150, 150, 150, .9);
-    color: var(--text-inverse);
+    color: var(--text-color);
     padding: 6rem 2rem;
     min-height: 100vh;
     display: flex;
@@ -456,6 +544,13 @@ body {
 .hero-content {
     max-width: 800px;
     text-align: center;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-radius: 1.25rem;
+    padding: 3rem 2.5rem;
 }
 
 .hero h1 {
@@ -463,6 +558,7 @@ body {
     font-weight: 800;
     margin-bottom: 1rem;
     line-height: 1.2;
+    color: var(--heading-color);
 }
 
 .hero-subtitle {
@@ -497,24 +593,25 @@ body {
 }
 
 .btn-primary {
-    background: white;
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: #fff;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: var(--secondary-color);
 }
 
 .btn-secondary {
     background: transparent;
-    color: white;
-    border-color: white;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-secondary:hover {
-    background: white;
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
 }
 
 /* =====================
@@ -557,8 +654,8 @@ body {
 .account-card,
 .contact-form,
 .collab-card {
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
 }
 
 /* =====================
