@@ -42,6 +42,10 @@ class Engine{
         return this.running;
     }
 
+    displayFrameRate(){
+        console.log(`Current Frame Rate: ${this.frameRate} FPS`);
+    }
+
     private wait(ms: number):Promise<void>{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
