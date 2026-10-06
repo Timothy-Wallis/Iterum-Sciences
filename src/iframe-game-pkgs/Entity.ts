@@ -38,6 +38,10 @@ class Entity{
     getHeight(): number{
         return this.height;
     }
+
+    setTexture(texture: ImageBitmap): void {
+        this.sprite = texture;
+    }
 }
 
 export default Entity;

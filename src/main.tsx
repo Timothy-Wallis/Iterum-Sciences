@@ -5,7 +5,29 @@ import App from './App.tsx'
 import '../styles.css'
 import '../loadingStyle.css'
 import StudentApp from './StudentApp.tsx'
+import {CTXEngine} from './iframe-game-pkgs/include.ts'
 
+let canvas = new CTXEngine.Canvas(800, 600);
+let engine = new CTXEngine.Engine(60);
+let entityManager = new CTXEngine.EntityManager();
+let camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
+let textureManager = new CTXEngine.TextureManager();
+textureManager.load("testTexture", "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg").then((bitmap: ImageBitmap) => {
+  testEntity.setTexture(bitmap);
+}).catch((error: any) => {
+  console.error("Error loading texture:", error);
+});
+
+
+engine.attachCamera(camera);
+engine.attachEntityManager(entityManager);
+engine.attachCanvas(canvas);
+let testEntity = new CTXEngine.Entity(10, 10, 50, 50, null!);
+entityManager.addEntity(testEntity);
+let main = () => {
+  entityManager.getEntity(0)?.move({x: 1,y: 0});
+}
+engine.start(main);
 
 //Ai generated test code 
 const sampleAssignmentData: AppProps = {
@@ -39,6 +61,8 @@ const sampleAssignmentData: AppProps = {
     }
   ]
 };
+
+  
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
