@@ -1,39 +1,62 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Analytics } from '@vercel/analytics/react'
-import App from './App.tsx'
 import '../styles.css'
 import '../loadingStyle.css'
 import StudentApp from './StudentApp.tsx'
-import {CTXEngine} from './iframe-game-pkgs/include.ts'
+import { CTXEngine } from './iframe-game-pkgs/include.ts'
 
-let canvas = new CTXEngine.Canvas(800, 600);
-let engine = new CTXEngine.Engine(60);
-let entityManager = new CTXEngine.EntityManager();
-let camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
-let textureManager = new CTXEngine.TextureManager();
-textureManager.load("testTexture", "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg").then((bitmap: ImageBitmap) => {
-  testEntity.setTexture(bitmap);
-}).catch((error: any) => {
-  console.error("Error loading texture:", error);
-});
+// ============================================================================
+// 1. CTX ENGINE CORE SETUPS & INSTANTIATION
+// ============================================================================
+let engineStarted = false;
 
+const startEngine = async (element: HTMLCanvasElement) => {
+  if (engineStarted) {
+    return;
+  }
+  engineStarted = true;
 
-engine.attachCamera(camera);
-engine.attachEntityManager(entityManager);
-engine.attachCanvas(canvas);
-let testEntity = new CTXEngine.Entity(10, 10, 50, 50, null!);
-entityManager.addEntity(testEntity);
-let main = () => {
-  entityManager.getEntity(0)?.move({x: 1,y: 0});
+  try {
+    const engine = new CTXEngine.Engine(60);
+    const canvas = new CTXEngine.Canvas(800, 600, element);
+    const entityManager = new CTXEngine.EntityManager();
+    const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
+    const textureManager = new CTXEngine.TextureManager();
+    const sprite = await textureManager.load("testTexture", "https://picsum.photos/1080/1080");
+    const testEntity = new CTXEngine.Entity(50, 50, 500, 500, sprite);
+
+    engine.attachCamera(camera);
+    engine.attachEntityManager(entityManager);
+    engine.attachCanvas(canvas);
+    entityManager.addEntity(testEntity);
+
+    await engine.start(() => {
+      testEntity.move({x: 1, y: -1});
+    });
+  } catch (error) {
+    engineStarted = false;
+    console.error("Error starting engine:", error);
+  }
+};
+
+// ============================================================================
+// 3. REACT LAYER PACKAGING INTERFACES
+// ============================================================================
+interface AppProps {
+  assignment: string;
+  dueDate: string;
+  questions: Array<{
+    question: string;
+    type: "number" | "dropdown" | "checkbox" | "url" | "text" | "multiple-choice" | "radio" | "date" | "file";
+    required?: boolean;
+    options?: Array<{ label: string; value: string }>;
+  }>;
 }
-engine.start(main);
 
-//Ai generated test code 
 const sampleAssignmentData: AppProps = {
   assignment: "Lab 05: Shader Controls & Form Submissions",
   dueDate: "October 10, 2026",
-  iframeUrl: "https://example.com/embed/lab05",
   questions: [
     {
       question: "Which coordinate space comes immediately after Object Space?",
@@ -62,16 +85,17 @@ const sampleAssignmentData: AppProps = {
   ]
 };
 
-  
-
+// ============================================================================
+// 4. REACT APPLICATION BOOTSTRAPPER RENDERER
+// ============================================================================
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Analytics />
     <StudentApp
       assignment={sampleAssignmentData.assignment}
       dueDate={sampleAssignmentData.dueDate}
-      iframeUrl={sampleAssignmentData.iframeUrl}
+      canvasRef={startEngine}
       questions={sampleAssignmentData.questions}
     />
   </StrictMode>,
-)
+);

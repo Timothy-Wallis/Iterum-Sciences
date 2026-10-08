@@ -1,4 +1,5 @@
 import '../src/StudentApp.css';
+import type { RefCallback } from 'react';
 
 export interface Option {
   label: string;
@@ -27,13 +28,14 @@ export interface AppProps {
   dueDate: string;
   questions?: Question[];
   iframeUrl?: string;
+  canvasRef?: RefCallback<HTMLCanvasElement>;
 }
 
 export default function StudentApp({
   assignment,
   dueDate,
   questions = [],
-  iframeUrl,
+  canvasRef,
 }: AppProps) {
   const renderInputControl = (q: Question, qIndex: number) => {
     const inputName = `question-${qIndex}`;
@@ -124,17 +126,10 @@ export default function StudentApp({
       <h1 className="assignment-title">{assignment}</h1>
       <p className="due-date">Due Date: {dueDate}</p>
 
-      {iframeUrl && (
-        <div className="assignment-iframe-container">
-          <h2>Launch Assignment {assignment}</h2>
-          <iframe
-            src={iframeUrl}
-            title="Assignment Content"
-            sandbox="allow-same-origin allow-scripts"
-            className="assignment-iframe"
-          />
-        </div>
-      )}
+      <div className="assignment-canvas-container">
+        <h2>Launch Assignment {assignment}</h2>
+        <canvas ref={canvasRef} aria-label="Interactive assignment canvas" className="assignment-canvas" />
+      </div>
 
       <hr className="divider" />
 

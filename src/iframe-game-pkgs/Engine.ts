@@ -25,7 +25,7 @@ class Engine{
     }
     
     attachCanvas(canvas: Canvas){
-        this.context = canvas.getContext();
+        this.context = canvas.getCanvas().getContext('2d') as CanvasRenderingContext2D;
         this.canvasWidth = canvas.getWidth();
         this.canvasHeight = canvas.getHeight();
     }
@@ -64,14 +64,17 @@ class Engine{
             const startTime = performance.now();
 
             // Override for assumption of camera being invalid
-            const Camera = this.camera as Camera;
+            //const Camera = this.camera as Camera;
 
-            this.context.translate(Camera.getOrigin().x, Camera.getOrigin().y);
+            //this.context.translate(Camera.getOrigin().x, Camera.getOrigin().y);
 
-            const newOrigin = new Vec2<number>(Camera.getOrigin().x + Camera.getSpeed(), Camera.getOrigin().y + Camera.getSpeed());
+            //const newOrigin = new Vec2<number>(Camera.getOrigin().x + Camera.getSpeed(), Camera.getOrigin().y + Camera.getSpeed());
 
-            this.camera?.setOrigin(newOrigin);
+            //this.camera?.setOrigin(newOrigin);
             this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+            this.context.fillStyle = "skyblue";
+            this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
             callback();
 
@@ -79,7 +82,6 @@ class Engine{
                 const tempEntity = this.EntityManager.getEntity(i) as Entity;
                 this.context.drawImage(tempEntity.getSprite(), tempEntity.getX(), tempEntity.getY(), tempEntity.getWidth(), tempEntity.getHeight());
             }
-
             const endTime = performance.now();
 
             const executionTime = endTime - startTime;
