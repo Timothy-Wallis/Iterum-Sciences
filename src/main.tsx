@@ -5,11 +5,19 @@ import '../styles.css'
 import '../loadingStyle.css'
 import StudentApp from './StudentApp.tsx'
 import { CTXEngine } from './iframe-game-pkgs/include.ts'
+import brownMothTextureUrl from './assets/GameAssets1-Test/brown-moth.png'
+import whiteMothTextureUrl from './assets/GameAssets1-Test/white-moth.png'
 
-// ============================================================================
-// 1. CTX ENGINE CORE SETUPS & INSTANTIATION
-// ============================================================================
 let engineStarted = false;
+const textureManager = new CTXEngine.TextureManager();
+const spriteLoader = async () => {
+  try {
+    await textureManager.load('brown_bug', brownMothTextureUrl);
+    await textureManager.load('white_bug', whiteMothTextureUrl);
+  } catch (error) {
+    console.error('Failed to load assignment sprite.', error);
+  }
+}
 
 const startEngine = async (element: HTMLCanvasElement) => {
   if (engineStarted) {
@@ -18,21 +26,21 @@ const startEngine = async (element: HTMLCanvasElement) => {
   engineStarted = true;
 
   try {
-    const engine = new CTXEngine.Engine(60);
+    const engine = new CTXEngine.Engine(144);
     const canvas = new CTXEngine.Canvas(800, 600, element);
     const entityManager = new CTXEngine.EntityManager();
     const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
-    const textureManager = new CTXEngine.TextureManager();
-    const sprite = await textureManager.load("testTexture", "https://picsum.photos/1080/1080");
-    const testEntity = new CTXEngine.Entity(50, 50, 500, 500, sprite);
+    await spriteLoader();
+    const testEntity = new CTXEngine.Entity(50, 50, 80, 80, textureManager.get("brown_bug"));
+    const testEntity2 = new CTXEngine.Entity(100, 100, 80, 80, textureManager.get("white_bug"));
 
     engine.attachCamera(camera);
     engine.attachEntityManager(entityManager);
     engine.attachCanvas(canvas);
     entityManager.addEntity(testEntity);
+    entityManager.addEntity(testEntity2);
 
     await engine.start(() => {
-      testEntity.move({x: 1, y: -1});
     });
   } catch (error) {
     engineStarted = false;
@@ -40,13 +48,10 @@ const startEngine = async (element: HTMLCanvasElement) => {
   }
 };
 
-// ============================================================================
-// 3. REACT LAYER PACKAGING INTERFACES
-// ============================================================================
-interface AppProps {
+interface AssignmentData{
   assignment: string;
   dueDate: string;
-  questions: Array<{
+ questions: Array<{
     question: string;
     type: "number" | "dropdown" | "checkbox" | "url" | "text" | "multiple-choice" | "radio" | "date" | "file";
     required?: boolean;
@@ -54,7 +59,7 @@ interface AppProps {
   }>;
 }
 
-const sampleAssignmentData: AppProps = {
+const sampleAssignmentData: AssignmentData = {
   assignment: "Lab 05: Shader Controls & Form Submissions",
   dueDate: "October 10, 2026",
   questions: [
@@ -85,16 +90,15 @@ const sampleAssignmentData: AppProps = {
   ]
 };
 
-// ============================================================================
-// 4. REACT APPLICATION BOOTSTRAPPER RENDERER
-// ============================================================================
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Analytics />
     <StudentApp
       assignment={sampleAssignmentData.assignment}
       dueDate={sampleAssignmentData.dueDate}
-      canvasRef={startEngine}
+      canvasRef={(element) => {
+        void startEngine(element!);
+      }}
       questions={sampleAssignmentData.questions}
     />
   </StrictMode>,

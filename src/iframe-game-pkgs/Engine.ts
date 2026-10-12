@@ -8,6 +8,8 @@ class Engine{
     private frameRate: number;
     private targetFrameRate: number;
     private running: boolean = false;
+    private totalTime: number = 0;
+    private clearColor: string = 'white';
 
     private EntityManager: EntityManager | null = null;
     private context: CanvasRenderingContext2D | null = null;
@@ -42,6 +44,29 @@ class Engine{
         return this.running;
     }
 
+    setClearColor(Color: string){
+        this.clearColor = Color; 
+    }
+    
+    setClearColorRGB(Red: number, Green: number, Blue: number, Alpha?: number){
+        if(Alpha == null){
+            Alpha = 1;
+        }
+        this.clearColor = `rgba(${Red}, ${Green}, ${Blue}, ${Alpha})`;
+    }
+
+    /**
+     * 
+     * @returns Total time in seconds per frame
+     */
+    getTotalTime(): number{
+        return Math.floor(this.totalTime/this.frameRate);
+    }
+
+    getExactTotalTime(): number{
+        return this.totalTime/this.frameRate;
+    }
+
     private wait(ms: number):Promise<void>{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -73,7 +98,7 @@ class Engine{
             //this.camera?.setOrigin(newOrigin);
             this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-            this.context.fillStyle = "skyblue";
+            this.context.fillStyle = this.clearColor;
             this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
             callback();
@@ -87,6 +112,7 @@ class Engine{
             const executionTime = endTime - startTime;
 
             const timeRemaining = this.targetFrameRate - executionTime;
+            this.totalTime++;
 
             if(timeRemaining > 0){
                 await this.wait(timeRemaining);
