@@ -39,12 +39,13 @@ const startEngine = async (element: HTMLCanvasElement) => {
     engine.attachCanvas(canvas);
     entityManager.addEntity(testEntity);
     entityManager.addEntity(testEntity2);
-    //let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+    let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
     await engine.start(() => {
       // Happens exactly every 10 seconds
-      if(engine.getExactTotalTime() % 1 == 0){
+      if(engine.getExactTotalTime() % 10 == 0){
       }
+      engine.setClearColor(colors[Math.floor(Math.random() * colors.length)]);
       testEntity.move({x: 1, y: 0})
     });
   } catch (error) {
