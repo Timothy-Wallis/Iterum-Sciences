@@ -26,7 +26,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
   engineStarted = true;
 
   try {
-    const engine = new CTXEngine.Engine(144);
+    const engine = new CTXEngine.Engine(60);
     const canvas = new CTXEngine.Canvas(800, 600, element);
     const entityManager = new CTXEngine.EntityManager();
     const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
@@ -39,8 +39,13 @@ const startEngine = async (element: HTMLCanvasElement) => {
     engine.attachCanvas(canvas);
     entityManager.addEntity(testEntity);
     entityManager.addEntity(testEntity2);
+    //let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
     await engine.start(() => {
+      // Happens exactly every 10 seconds
+      if(engine.getExactTotalTime() % 1 == 0){
+      }
+      testEntity.move({x: 1, y: 0})
     });
   } catch (error) {
     engineStarted = false;

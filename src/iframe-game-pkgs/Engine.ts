@@ -2,7 +2,7 @@ import Entity from "./Entity";
 import EntityManager from './EntityManager'
 import Camera from "./Camera";
 import Canvas from "./Canvas";
-import Vec2 from "./Vec2";
+//import Vec2 from "./Vec2";
 
 class Engine{
     private frameRate: number;
@@ -24,6 +24,10 @@ class Engine{
     setFrameRate(frameRate: number){
         this.frameRate = frameRate;
         this.targetFrameRate = 1000/frameRate;
+    }
+
+    getFrameRate(): number{
+        return this.frameRate;
     }
     
     attachCanvas(canvas: Canvas){

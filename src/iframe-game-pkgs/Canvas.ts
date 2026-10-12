@@ -1,10 +1,10 @@
-import Engine from "./Engine";
+//import Engine from "./Engine";
 class Canvas {
     private width: number;
     private height: number;
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
-    private EngineFunction?: Engine;
+    //private EngineFunction?: Engine;
     private id: string;
 
     constructor(width: number, height: number, canvas?: HTMLCanvasElement) {
@@ -37,9 +37,9 @@ class Canvas {
         return this.context;
     }
 
-    attachEngine(Engine: Engine){
-        this.EngineFunction = Engine;
-    }
+    // attachEngine(Engine: Engine){
+    //     this.EngineFunction = Engine;
+    // }
 }
 
 export default Canvas;
