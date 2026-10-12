@@ -109,7 +109,11 @@ class Engine{
 
             for(let i = 0; i < this.EntityManager.getEntityList().length; i++){
                 const tempEntity = this.EntityManager.getEntity(i) as Entity;
+                this.context.translate(tempEntity.getX(), tempEntity.getY());
+                this.context.rotate(tempEntity.getRotation() * Math.PI / 180);
+                this.context.translate(-tempEntity.getX(), -tempEntity.getY())
                 this.context.drawImage(tempEntity.getSprite(), tempEntity.getX(), tempEntity.getY(), tempEntity.getWidth(), tempEntity.getHeight());
+                this.context.setTransform(1, 0, 0, 1, 0, 0);
             }
             const endTime = performance.now();
 

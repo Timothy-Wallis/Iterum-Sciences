@@ -45,6 +45,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
       if(engine.getExactTotalTime() % 10 == 0){
       }
       testEntity.move({x: 1, y: 0})
+      testEntity.rotate(1 + testEntity.getRotation());
     });
   } catch (error) {
     engineStarted = false;

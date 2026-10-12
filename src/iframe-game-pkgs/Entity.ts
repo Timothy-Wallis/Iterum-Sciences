@@ -6,6 +6,7 @@ class Entity{
     private width: number;
     private height: number;
     private sprite: ImageBitmap;
+    private rotation: number;
 
     constructor(x: number, y: number, width: number, height: number, sprite: ImageBitmap){
         this.x = x;
@@ -13,11 +14,20 @@ class Entity{
         this.width = width;
         this.height = height;
         this.sprite = sprite;
+        this.rotation = 0;
     }
 
     move(vector: Vec2<number>){
         this.x += vector.x;
         this.y += vector.y;
+    }
+
+    rotate(Degree: number){
+        this.rotation = Degree;
+    }
+
+    getRotation(): number{
+        return this.rotation;
     }
 
     getSprite(): ImageBitmap{
