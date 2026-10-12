@@ -64,46 +64,50 @@ interface AssignmentData{
 }
 
 const sampleAssignmentData: AssignmentData = {
-  assignment: "Lab 05: Shader Controls & Form Submissions",
-  dueDate: "October 10, 2026",
+  assignment: "Demo 1 - Evolution simulation",
+  dueDate: "October 12, 2026 - 11:59 PM",
   questions: [
     {
-      question: "Which coordinate space comes immediately after Object Space?",
-      type: "dropdown",
+      question: "Why is the White moth more likely to survive then the brown moth?",
+      type: "multiple-choice",
       required: true,
       options: [
-        { label: "World Space", value: "world" },
-        { label: "View Space", value: "view" },
-        { label: "Clip Space", value: "clip" }
+        {label: "This is due to the white moth being adapted to the environment, whereas the brown moth is adapted for a different environment.", value: "correct"},
+        {label: "This is not true, both have the same likelyhood of surviving in this white environment.", value: "false"},
+        {label: "The white moth will survive out of luck for being white, no other reason.", value: "false"},
+        {label: "The brown moth will survive longer, as it stands out in the environment, acting as camofloage.", value: "false"}
       ]
-    },
-    {
-      question: "Select all features supported by Vulkan:",
-      type: "checkbox",
-      options: [
-        { label: "Explicit Memory Management", value: "explicit_mem" },
-        { label: "Multi-threaded Command Buffer Recording", value: "multithread" },
-        { label: "Automatic Garbage Collection", value: "gc" }
-      ]
-    },
-    {
-      question: "Provide your lab repository submission URL:",
-      type: "url",
-      required: true
     }
   ]
 };
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Analytics />
-    <StudentApp
+
+
+const root = document.getElementById('root');
+
+if(root){
+  // Development server + website server
+  if(window.location.href == "http://localhost:5173/" || window.location.href == "https://iterum-sciences.vercel.app" && localStorage.getItem('completed') != `${true}`){
+    localStorage.setItem('completed', `${false}`);
+    createRoot(root).render(<StrictMode>
+      <Analytics/>
+      <StudentApp
       assignment={sampleAssignmentData.assignment}
       dueDate={sampleAssignmentData.dueDate}
       canvasRef={(element) => {
         void startEngine(element!);
       }}
       questions={sampleAssignmentData.questions}
-    />
-  </StrictMode>,
-);
+      />
+    </StrictMode>
+    );
+  }else{
+    localStorage.setItem('completed', `${true}`);
+    createRoot(root).render(
+      <StrictMode>
+        <Analytics/>
+        <h1>Oops! Seems like you already completed this assignment</h1>
+      </StrictMode>
+    )
+  }
+}
