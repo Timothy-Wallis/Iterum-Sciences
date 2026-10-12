@@ -26,7 +26,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
   engineStarted = true;
 
   try {
-    const engine = new CTXEngine.Engine(60);
+    const engine = new CTXEngine.Engine(144);
     const canvas = new CTXEngine.Canvas(800, 600, element);
     const entityManager = new CTXEngine.EntityManager();
     const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
@@ -45,7 +45,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
       if(engine.getExactTotalTime() % 10 == 0){
       }
       testEntity.move({x: 1, y: 0})
-      testEntity.rotate(1 + testEntity.getRotation());
+      testEntity2.rotate(1 + testEntity2.getRotation());
     });
   } catch (error) {
     engineStarted = false;
