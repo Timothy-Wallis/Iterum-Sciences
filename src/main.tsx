@@ -87,8 +87,6 @@ const root = document.getElementById('root');
 
 if(root){
   // Development server + website server
-  
-  if(window.location.href == "http://localhost:5173/" || window.location.href == "https://iterum-sciences.vercel.app" || window.location.href == "https://iterum-sciences-git-beta-28cf1a-timothywallisucmerceds-projects.vercel.app"){
     createRoot(root).render(<StrictMode>
       <Analytics/>
       <StudentApp
@@ -101,12 +99,4 @@ if(root){
       />
     </StrictMode>
     );
-  }else{
-    createRoot(root).render(
-      <StrictMode>
-        <Analytics/>
-        <h1>Oops! Seems like you already completed this assignment</h1>
-      </StrictMode>
-    )
-  }
 }
