@@ -87,7 +87,7 @@ const root = document.getElementById('root');
 
 if(root){
   // Development server + website server
-  if(window.location.href == "http://localhost:5173/" || window.location.href == "https://iterum-sciences.vercel.app" && localStorage.getItem('completed') != `${true}`){
+  if(window.location.href == "http://localhost:5173/" || window.location.href == "https://iterum-sciences.vercel.app" || window.location.href == "https://iterum-sciences-git-beta-28cf1a-timothywallisucmerceds-projects.vercel.app" && localStorage.getItem('completed') != `${true}`){
     localStorage.setItem('completed', `${false}`);
     createRoot(root).render(<StrictMode>
       <Analytics/>
