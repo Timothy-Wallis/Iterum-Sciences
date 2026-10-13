@@ -26,7 +26,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
   engineStarted = true;
 
   try {
-    const engine = new CTXEngine.Engine(15);
+    const engine = new CTXEngine.Engine(60);
     const canvas = new CTXEngine.Canvas(800, 600, element);
     const entityManager = new CTXEngine.EntityManager();
     const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
@@ -35,30 +35,11 @@ const startEngine = async (element: HTMLCanvasElement) => {
     engine.attachCamera(camera);
     engine.attachEntityManager(entityManager);
     engine.attachCanvas(canvas);
-    let testUnitVec2 = new CTXEngine.UnitVec2((Math.random() - .5) * 100, (Math.random() - .5) * 100);
-    for (let i = 0; i < 50; i++) {
-      const testEntity = new CTXEngine.Entity(Math.random() * 800, Math.random() * 600, 80, 80, textureManager.get("brown_bug"));
-      entityManager.addEntity(testEntity);
-    }
-    for(let i = 0; i < 50; i++) {
-      const testEntity = new CTXEngine.Entity(Math.random() * 800, Math.random() * 600, 80, 80, textureManager.get("white_bug"));
-      entityManager.addEntity(testEntity);
-    }
-    engine.setClearColor('brown');
+    const LerpVal = new CTXEngine.Lerp(0, 1, .5);
 
     await engine.start(() => {
-      // Happens exactly every 10 seconds
-      for (const testEntity of entityManager.getEntityList()) {
-          testUnitVec2 = new CTXEngine.UnitVec2((Math.random() - .5) * 100, (Math.random() - .5) * 100);
-              testEntity.rotate(Math.tan(testUnitVec2.y / testUnitVec2.x) * 180 / Math.PI);
-        testEntity.move({ x: testUnitVec2.x * 20, y: testUnitVec2.y * 20 });
-        if (testEntity.getX() < 0 || testEntity.getX() > 800 - testEntity.getWidth()) {
-          testUnitVec2.x = -testUnitVec2.x;
-        }
-        if (testEntity.getY() < 0 || testEntity.getY() > 600 - testEntity.getHeight()) {
-          testUnitVec2.y = -testUnitVec2.y;
-        }
-      }
+      LerpVal.changePercent(engine.getExactTotalTime() % 1);
+      console.log(LerpVal.value);
     });
   } catch (error) {
     engineStarted = false;
