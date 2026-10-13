@@ -6,6 +6,7 @@ import Engine from './Engine';
 import Entity from './Entity';
 import EntityManager from './EntityManager';
 import TextureManager from './TextureManager';
+import {UnitVec2} from './Vec2';
 import Vec2 from './Vec2';
 
 // Declare using let as a standard object variable
@@ -16,7 +17,8 @@ let CTXEngine = {
   Entity,
   EntityManager,
   TextureManager,
-  Vec2,
+  UnitVec2,
+  Vec2
 };
 
 // Export the variable out to your system
