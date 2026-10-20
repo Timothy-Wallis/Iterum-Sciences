@@ -160,3 +160,12 @@ export default function StudentApp({
     </div>
   );
 }
+
+import Canvas from './iframe-game-pkgs/Canvas';
+export function IframeGame({ canvas }: { canvas: Canvas }) {
+  return (
+    <div className="iframe-game-container" id="iframe-game-container">
+      <canvas id={canvas.getCanvas().id} width={canvas.getCanvas().width} height={canvas.getCanvas().height}></canvas>
+    </div>
+  );
+}

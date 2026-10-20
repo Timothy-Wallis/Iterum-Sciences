@@ -1,57 +1,60 @@
 import Vec2 from "./Vec2";
 
-class Entity{
-    private x: number;
-    private y: number;
-    private width: number;
-    private height: number;
-    private sprite: ImageBitmap;
-    private rotation: number;
+class Entity {
+    
+    protected x: number;
+    protected y: number;
+    protected width: number;
+    protected height: number;
+    protected sprite: ImageBitmap;
+    protected rotation: number
 
-    constructor(x: number, y: number, width: number, height: number, sprite: ImageBitmap){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.sprite = sprite;
-        this.rotation = 0;
-    }
 
-    move(vector: Vec2<number>){
-        this.x += vector.x;
-        this.y += vector.y;
-    }
+constructor(x: number, y: number, width: number, height: number, sprite: ImageBitmap){
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.sprite = sprite;
+    this.rotation = 0;
+}
 
-    rotate(Degree: number){
-        this.rotation = Degree;
-    }
+move(vector: Vec2<number>){
+    this.x += vector.x;
+    this.y -= vector.y;
+    this.rotation = Math.atan2(-vector.y, vector.x) * (180 / Math.PI) + 90;
+}
 
-    getRotation(): number{
-        return this.rotation;
-    }
+rotate(Degree: number){
+    this.rotation = Degree;
+}
 
-    getSprite(): ImageBitmap{
-        return this.sprite;
-    }
+getRotation(): number{
+    return this.rotation;
+}
 
-    getX(): number{
-        return this.x;
-    }
+getSprite(): ImageBitmap{
+    return this.sprite;
+}
 
-    getY(): number{
-        return this.y;
-    }
+getX(): number{
+    return this.x;
+}
 
-    getWidth(): number {
-        return this.width;
-    }
-    getHeight(): number{
-        return this.height;
-    }
+getY(): number{
+    return this.y;
+}
 
-    setTexture(texture: ImageBitmap): void {
-        this.sprite = texture;
-    }
+getWidth(): number {
+    return this.width;
+}
+getHeight(): number{
+    return this.height;
+}
+
+setTexture(texture: ImageBitmap): void {
+    this.sprite = texture;
+}
 }
 
 export default Entity;

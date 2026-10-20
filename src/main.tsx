@@ -7,8 +7,10 @@ import StudentApp from './StudentApp.tsx'
 import { CTXEngine } from './iframe-game-pkgs/include.ts'
 import brownMothTextureUrl from './assets/GameAssets1-Test/brown-moth.png'
 import whiteMothTextureUrl from './assets/GameAssets1-Test/white-moth.png'
+import Bug from './simulation-evolution-modules/Bug.ts'
 
 let engineStarted = false;
+let canvas = new CTXEngine.Canvas(800, 600, document.createElement('canvas'));
 const textureManager = new CTXEngine.TextureManager();
 const spriteLoader = async () => {
   try {
@@ -17,6 +19,10 @@ const spriteLoader = async () => {
   } catch (error) {
     console.error('Failed to load assignment sprite.', error);
   }
+}
+const getRandomVec2 = () => {
+  let randomVector = new CTXEngine.Vec2<number>((Math.random()) * canvas.getWidth(), (Math.random()) * canvas.getHeight());
+  return randomVector;
 }
 
 const startEngine = async (element: HTMLCanvasElement) => {
@@ -27,7 +33,7 @@ const startEngine = async (element: HTMLCanvasElement) => {
 
   try {
     const engine = new CTXEngine.Engine(60);
-    const canvas = new CTXEngine.Canvas(800, 600, element);
+    canvas = new CTXEngine.Canvas(800, 600, element);
     const entityManager = new CTXEngine.EntityManager();
     const camera = new CTXEngine.Camera({ x: 0, y: 0 }, { x: 800, y: 600 }, 1);
     await spriteLoader();
@@ -35,11 +41,25 @@ const startEngine = async (element: HTMLCanvasElement) => {
     engine.attachCamera(camera);
     engine.attachEntityManager(entityManager);
     engine.attachCanvas(canvas);
-    const LerpVal = new CTXEngine.Lerp(0, 1, .5);
+
+    let vector = new CTXEngine.UnitVec2((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
+    for(let i = 0; i < 10; i++){
+      let vec2 = getRandomVec2();
+      let bug = new Bug(vec2.x, vec2.y, 50, 50, textureManager.get('brown_bug'), 50);
+      entityManager.addEntity(bug);
+    }
 
     await engine.start(() => {
-      LerpVal.changePercent(engine.getExactTotalTime() % 1);
-      console.log(LerpVal.value);
+      for(let i = 0; i < entityManager.getEntityList().length; i++){
+        let entity = entityManager.getEntity(i);
+        if(entity instanceof Bug){
+          entity.updatePercent(0.1);
+          if(!entity.run()){
+            entityManager.getEntityList().splice(i, 1);
+            i--;
+          }
+        }
+      }
     });
   } catch (error) {
     engineStarted = false;

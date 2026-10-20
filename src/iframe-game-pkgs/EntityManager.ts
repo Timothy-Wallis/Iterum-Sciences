@@ -1,6 +1,6 @@
 import Entity from "./Entity";
 class EntityManager {
-    private Entities: Entity[] = [];
+    private Entities: Entity[]  = [];
     constructor() {}
     public addEntity(entity: Entity): void {
         this.Entities.push(entity);

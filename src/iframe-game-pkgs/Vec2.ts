@@ -21,6 +21,13 @@ class UnitVec2<T> extends Vec2<T>{
     public static fromVec2<T>(vec: Vec2<T>): UnitVec2<T>{
         return new UnitVec2<T>(vec.x, vec.y);
     }
+    public get value(): number {
+        return Math.sqrt(Number(this.x) * Number(this.x) + Number(this.y) * Number(this.y));
+    }
+
+    multiplyScalar(scalar: number): UnitVec2<number> {
+        return new UnitVec2<number>(Number(this.x) * scalar, Number(this.y) * scalar);
+    }
 }
 export default Vec2;
 export { UnitVec2 };
