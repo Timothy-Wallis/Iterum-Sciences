@@ -42,7 +42,6 @@ const startEngine = async (element: HTMLCanvasElement) => {
     engine.attachEntityManager(entityManager);
     engine.attachCanvas(canvas);
 
-    let vector = new CTXEngine.UnitVec2((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
     for(let i = 0; i < 10; i++){
       let vec2 = getRandomVec2();
       let bug = new Bug(vec2.x, vec2.y, 50, 50, textureManager.get('brown_bug'), 50);
