@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/react'
 import '../styles.css'
 import '../loadingStyle.css'
 
-const App = lazy(() => import('./simulation-evolution-modules/Evolution-Sim-App.tsx'));
+const App = lazy(() => import('./App'));
 
 const root = document.getElementById('root');
 
