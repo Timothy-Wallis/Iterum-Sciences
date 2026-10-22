@@ -1,15 +1,25 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import App from './App.tsx'
 import '../styles.css'
 import '../loadingStyle.css'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+const App = lazy(() => import('./simulation-evolution-modules/Evolution-Sim-App.tsx'));
+
+const root = document.getElementById('root');
+
+if (root) {
+  // Development server + website server
+  createRoot(root).render(<StrictMode>
+    <Suspense fallback={<div id="loadIcon">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>}>
     <App/>
-    <Analytics/>
-    <SpeedInsights/>
-  </StrictMode>,
-)
+    </Suspense>
+    <Analytics />
+  </StrictMode>
+  );
+}
