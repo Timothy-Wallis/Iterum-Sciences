@@ -12,7 +12,7 @@ class Bug extends Entity{
         super(x, y, width, height, sprite);
         this.lifeSpan = lifeSpan;
         this.VectorToNext = this.newUnitVec2();
-        this.lerpVec2 = new Vec2<Lerp>(new Lerp(this.x, this.VectorToNext.x, this.percent), new Lerp(this.y, this.VectorToNext.y, this.percent));
+        this.lerpVec2 = new Vec2<Lerp>(new Lerp(0, this.VectorToNext.x, this.percent), new Lerp(0, this.VectorToNext.y, this.percent));
     }
     public run(): boolean{
         if(this.lifeSpan > 0){
@@ -20,7 +20,7 @@ class Bug extends Entity{
             if(this.percent >= 1.0){
                 this.percent = 0;
                 this.VectorToNext = this.newUnitVec2();
-                this.lerpVec2 = new Vec2<Lerp>(new Lerp(this.x, this.VectorToNext.x, this.percent), new Lerp(this.y, this.VectorToNext.y, this.percent));
+                this.lerpVec2 = new Vec2<Lerp>(new Lerp(0, this.VectorToNext.x, this.percent), new Lerp(0, this.VectorToNext.y, this.percent));
             }
             return true;
         }
@@ -30,7 +30,7 @@ class Bug extends Entity{
         this.lifeSpan--;
     }
     public updatePercent(percent: number){
-        this.percent = percent;
+        this.percent += percent;
         this.lerpVec2.x.changePercent(this.percent);
         this.lerpVec2.y.changePercent(this.percent);
     }

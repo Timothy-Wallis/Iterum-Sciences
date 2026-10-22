@@ -51,7 +51,7 @@ class EvolutionSim {
 
             for (let i = 0; i < 10; i++) {
                 const vec2 = this.getRandomVec2();
-                const bug = new Bug(vec2.x, vec2.y, 50, 50, this.textureManager.get('brown_bug'), 50);
+                const bug = new Bug(vec2.x, vec2.y, 50, 50, this.textureManager.get('brown_bug'), 500);
                 entityManager.addEntity(bug);
             }
 
@@ -59,11 +59,12 @@ class EvolutionSim {
                 for (let i = 0; i < entityManager.getEntityList().length; i++) {
                     const entity = entityManager.getEntity(i);
                     if (entity instanceof Bug) {
-                        entity.updatePercent(0.1);
+                        entity.updatePercent(0.01);
                         if (!entity.run()) {
                             entityManager.getEntityList().splice(i, 1);
                             i--;
                         }
+                        entity.updateTime();
                     }
                 }
             });
