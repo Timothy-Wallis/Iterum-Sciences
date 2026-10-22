@@ -5,13 +5,16 @@
 
 Iterum Sciences is a Vite + React + TypeScript web platform for educational tools, research content, and interactive client-side experiences.
 
-## Tech Stack
+## Tech Stack (`beta-1.0-school-engine`)
 
 - React 19 + TypeScript
 - Vite 8
-- ESLint
+- ESLint + `typescript-eslint`
+- Sass
 - Supabase Auth (`@supabase/supabase-js`)
-- Vercel Analytics + Speed Insights
+- Vercel Analytics (`@vercel/analytics`)
+- Custom school simulation modules (`src/simulation-evolution-modules/*`)
+- Custom iframe game engine packages (`src/iframe-game-pkgs/*`)
 
 ## Project Structure (recursive)
 
@@ -78,7 +81,7 @@ Iterum-Sciences/
 ### `src/main.tsx`
 - Boots React into `#root`.
 - Loads global styles.
-- Mounts `App`, `Analytics`, and `SpeedInsights`.
+- Mounts the lazy-loaded school simulation app and `Analytics`.
 
 ### `src/App.tsx`
 - Core page-state controller (`home`, `settings`, `signup`/auth views).
