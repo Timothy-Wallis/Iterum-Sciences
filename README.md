@@ -5,7 +5,7 @@
 
 Iterum Sciences is a Vite + React + TypeScript web platform for educational tools, research content, and interactive client-side experiences.
 
-## Tech Stack (`beta-1.0-school-engine`)
+## Tech Stack (`main-web-v2`)
 
 - React 19 + TypeScript
 - Vite 8
