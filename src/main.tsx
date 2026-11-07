@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/react'
 import '../styles.css'
 import '../loadingStyle.css'
 
-const App = lazy(() => import('./App'));
+const App = lazy(() => import('./code-playground/CodeBlocksApp'));
 
 const root = document.getElementById('root');
 

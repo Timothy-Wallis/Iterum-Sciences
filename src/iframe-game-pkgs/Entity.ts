@@ -19,7 +19,7 @@ constructor(x: number, y: number, width: number, height: number, sprite: ImageBi
     this.rotation = 0;
 }
 
-move(vector: Vec2<number>){
+protected move(vector: Vec2<number>){
     this.x += vector.x;
     this.y -= vector.y;
     this.rotation = Math.atan2(-vector.y, vector.x) * (180 / Math.PI) + 90;
